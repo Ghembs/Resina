@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script src="main.js" type="text/javascript"></script>
+<a href="https://docs.google.com/forms/d/1j38kyhHjkjCmCCmBONiACY4wlWSk3ydrB6qx1DtVVMM/edit" target="_blank">
+    <div class="gif tooltip"><span class="tooltiptext">
+            Entra nella tana...
+          </span></div></a>
+
+<script>
+    const localhost = "https://resina-wp.threefaces.org/wp-json/wp/v2";
+    const url = `${localhost}/pages?slug=home`;
+    const ftch = fetch(url);
+    ftch.then(res => {
+        let data = res.json();
+        data.then((result) => {
+            const parser = new DOMParser();
+            const page = parser.parseFromString(result[0].content.rendered, "text/html");
+            document.title = page.getElementsByTagName("h1")[0].innerHTML;
+            let icon = document.createElement("link");
+            icon.setAttribute("rel", "icon");
+            icon.setAttribute("type", "image/jpg");
+            icon.setAttribute("href", page.getElementsByTagName("img")[0].src);
+            document.head.appendChild(icon);
+        })
+    })
+</script>
+</body>
+</html>

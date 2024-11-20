@@ -1,0 +1,103 @@
+#canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    text-align: center;
+    background-color: darkgrey;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.gif {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    background-image: url(frames/0001.png);
+    background-repeat: no-repeat;
+    /*
+    background-attachment: fixed;*/
+    background-position: center;
+    background-size: contain;
+    animation: play 1.5s infinite steps(1);
+    animation-play-state: running;
+}
+.gif:hover {
+    animation-play-state:paused;
+}
+
+.tooltip {
+    display: inline-block;
+    cursor: default;
+}
+
+.tooltip .tooltiptext {
+    /*visibility: hidden;*/
+    padding: 0.25em 0.5em;
+    background-color: black;
+    color: #3fa52d;
+    text-align: center;
+    border-radius: 0.25em;
+    white-space: nowrap;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 10%;
+    transition-property: visibility;
+    transition-delay: 0s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    transition-delay: 0.2s;
+}
+
+@media (pointer: coarse)  {
+    /* mobile */
+    .tooltip .tooltiptext {
+        visibility: visible;
+    }
+}
+
+@media (pointer: fine), (pointer: none) {
+    /* desktop */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+    }
+}
+
+@media (pointer: fine) and (any-pointer: coarse) {
+    /* touch desktop */
+    .tooltip .tooltiptext {
+        visibility: visible;
+    }
+}
+
+@keyframes play {
+    0%   { background-image: url('frames/0001.png'); }
+    6%   { background-image: url('frames/0009.png'); }
+    12%   { background-image: url('frames/0017.png'); }
+    18%   { background-image: url('frames/0029.png'); }
+    24%   { background-image: url('frames/0037.png'); }
+    30%   { background-image: url('frames/0049.png'); }
+    36%   { background-image: url('frames/0057.png'); }
+    42%   { background-image: url('frames/0065.png'); }
+    48%   { background-image: url('frames/0073.png'); }
+    54%   { background-image: url('frames/0081.png'); }
+    60%   { background-image: url('frames/0089.png'); }
+    66%   { background-image: url('frames/0101.png'); }
+    72%   { background-image: url('frames/0109.png'); }
+    78%   { background-image: url('frames/0121.png'); }
+    84%   { background-image: url('frames/0129.png'); }
+    90%   { background-image: url('frames/0137.png'); }
+    96%  { background-image: url('frames/0145.png'); }
+}
