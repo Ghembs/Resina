@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Webcore</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/xp.css">
-    <script src="main.js"></script>
+    <script src="src/main.js"></script>
 </head>
 <body>
 <!--img src="../../resources/resina.png" alt="resina error message" id="error-message"-->
@@ -19,7 +19,7 @@
         <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
             <button aria-label="Maximize"></button>
-            <button aria-label="Close"></button>
+            <button onclick="location.href='../../index.html'" aria-label="Close"></button>
         </div>
     </div>
     <div class="window-body">
@@ -30,7 +30,7 @@
         <br>Hai la certezza di voler entrare?</p></div>
         <section class="field-row" style="justify-content: center">
             <button onclick="location.href='screen.html'">Entra</button>
-            <button>Scappa</button>
+            <button disabled>Scappa</button>
         </section>
     </div>
 </div>
