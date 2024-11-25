@@ -10,12 +10,12 @@
     <script src="src/taskbar.js"></script>
 </head>
 <body>
-<div class="window" id="ms-word-page" style="display: flex; box-sizing: border-box; flex-direction: column;
-align-items: flex-start;">
+<div class="window vertical_flex" id="ms-word-page">
     <div class="title-bar" style="width: 100%; box-sizing: border-box; height: 32px;">
-        <div class="title-bar-text" style="display: flex"><img src="assets/officexp%2032x32%20orig.png"
-                                         width="24px" alt="">
-            <div style="display: flex; align-items: center; margin-left: 8px">Documento 1 - Microsoft Word</div></div>
+        <div class="title-bar-text" style="display: flex">
+            <img src="assets/officexp%2032x32%20orig.png" width="24px" alt="">
+            <div id="titolo" style="display: flex; align-items: center; margin-left: 8px"></div>
+        </div>
         <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
             <button aria-label="Restore"></button>
@@ -28,33 +28,36 @@ align-items: flex-start;">
             <p><span style="text-decoration: underline">M</span>odifica</p>
             <p><span style="text-decoration: underline">V</span>isualizza</p>
             <p><span style="text-decoration: underline">I</span>nserisci</p>
-            <p><span style="text-decoration: underline">F</span>ormato</p>
+            <p>F<span style="text-decoration: underline">o</span>rmato</p>
             <p><span style="text-decoration: underline">S</span>trumenti</p>
             <p><span style="text-decoration: underline">T</span>abella</p>
-            <p><span style="text-decoration: underline">F</span>inestra</p>
+            <p>Fi<span style="text-decoration: underline">n</span>estra</p>
             <p><span style="text-decoration: underline">?</span></p>
         </div>
-        <div class="status-bar" id="standard-toolbar" style="display: flex; flex-direction: row; align-items: center;">
-            <div style="box-sizing: border-box; margin: 0; padding: 0; display: flex; flex-direction: row; align-items: center;"><img src="assets/word_icons/newfile.png" class="icon" alt=""></div>
-            <div style="box-sizing: border-box; margin: 0; padding: 0; display: flex; flex-direction: row; align-items: center;"><img src="assets/word_icons/openfile.png" class="icon" alt=""></div>
+        <div class="status-bar horizontal_flex" id="standard-toolbar">
+            <div class="horizontal_flex">
+                <img src="assets/word_icons/newfile.png" class="icon" alt=""></div>
+            <div class="horizontal_flex">
+                <img src="assets/word_icons/openfile.png" class="icon" alt="">
+            </div>
             <img src="assets/word_icons/savefile.png" class="icon" alt="">
             <img src="assets/word_icons/bruhfile.png" class="icon" alt="">
             <img src="assets/word_icons/searchfile.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/print.png" class="icon" alt="">
             <img src="assets/word_icons/searchagain.png" class="icon" alt="">
             <img src="assets/word_icons/controlloortografico.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/cut.png" class="icon" alt="">
             <img src="assets/word_icons/copy.png" class="icon" alt="">
             <img src="assets/word_icons/paste.png" class="icon" alt="">
             <img src="assets/word_icons/pennellocingh.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/undo.png" class="icon" alt="">
             <img src="assets/word_icons/undooptions.png" class="icon" alt="">
             <img src="assets/word_icons/redo.png" class="icon" alt="">
             <img src="assets/word_icons/redooptions.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/link.png" class="icon" alt="">
             <img src="assets/word_icons/windowqualcosa.png" class="icon" alt="">
             <img src="assets/word_icons/buildingquqalcosa.png" class="icon" alt="">
@@ -75,7 +78,7 @@ align-items: flex-start;">
             <img src="assets/word_icons/help.png" class="icon" alt="">
             <img src="assets/word_icons/reversep.png" class="icon" alt="">
         </div>
-        <div class="status-bar" style="display: flex; flex-direction: row; align-items: center;">
+        <div class="status-bar horizontal_flex">
             <img src="assets/word_icons/AA.png" class="icon" alt="">
             <label>
                 <select>
@@ -106,40 +109,46 @@ align-items: flex-start;">
                     <option>NaN</option>
                 </select>
             </label>
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/grasso.png" class="icon" alt="">
             <img src="assets/word_icons/corso.png" class="icon" alt="">
             <img src="assets/word_icons/sotto.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/leftalign.png" class="icon" alt="">
             <img src="assets/word_icons/centeralign.png" class="icon" alt="">
             <img src="assets/word_icons/rightalign.png" class="icon" alt="">
             <img src="assets/word_icons/fullwidthalign.png" class="icon" alt="">
             <img src="assets/word_icons/interlinea.png" class="icon" alt="">
             <img src="assets/word_icons/undooptions.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/elenconumerato.png" class="icon" alt="">
             <img src="assets/word_icons/elencopuntato.png" class="icon" alt="">
             <img src="assets/word_icons/frecciafuori.png" class="icon" alt="">
             <img src="assets/word_icons/frecciadentro.png" class="icon" alt="">
-            <div style="border-left: 1px solid #b4b1a3; height: 32px; margin: 0 2px"></div>
+            <div class="vertical_separator"></div>
             <img src="assets/word_icons/mirinocaccia.png" class="icon" alt="">
             <img src="assets/word_icons/undooptions.png" class="icon" alt="">
-            <div style="height: 32px;display: flex; flex-direction: column; align-items: flex-start; margin: 0; padding: 0;"><img style="" src="assets/word_icons/riempimentotesto.png" class="icon" alt=""><div style="margin: 0 4px; padding: 0;width: 32px; height: 8px; background-color: #000"></div></div>
+            <div class="vertical_flex" style="height: 32px;">
+                <img style="" src="assets/word_icons/riempimentotesto.png" class="icon" alt="">
+                <div style="margin: 0 4px; padding: 0;width: 32px; height: 8px; background-color: #000"></div>
+            </div>
             <img src="assets/word_icons/undooptions.png" class="icon" alt="">
-            <div style="height: 32px;display: flex; flex-direction: column; align-items: flex-start; margin: 0; padding: 0;"><img src="assets/word_icons/coloretesto.png" class="icon" alt=""><div style="margin: 0 4px; padding: 0;width: 32px; height: 8px; background-color: #000"></div></div>
+            <div class="vertical_flex" style="height: 32px;">
+                <img src="assets/word_icons/coloretesto.png" class="icon" alt="">
+                <div style="margin: 0 4px; padding: 0;width: 32px; height: 8px; background-color: #000"></div>
+            </div>
             <img src="assets/word_icons/undooptions.png" class="icon" alt="">
         </div>
     </div>
-    <div class="window-body" style="height: 100%; width: 100%; margin: 0 0 0 3px; padding: 0; overflow: hidden;
-display: flex; flex-direction: row; align-items: flex-start;">
-        <div id="ms-paper" style="width: 90%; height: 100%;
-        overflow-y: scroll; overflow-x: scroll; margin: 0; padding: 0;">
+    <div class="window-body horizontal_flex" style="height: 100%; width: 100%; margin: 0 0 0 3px; padding: 0; overflow: hidden;">
+        <div id="ms-paper" style="width: 90%; height: 100%; overflow-y: scroll; overflow-x: scroll; margin: 0; padding: 0;">
             <div class="menu" style="margin: 0; padding: 0; width: 100%; height: 32px; background-color: #fff;">
-                <div class="status-bar" style="width: 100%; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: flex-start;">
+                <div class="status-bar vertical_flex" style="width: 100%; padding: 0; margin: 0;">
                     <div id="first" style="width: 100%; height: 5px; margin:0; padding:0; background-color: #ECE9D8"></div>
                     <div id="test" style="display: flex; flex-direction: row; width: 100%; align-items: flex-start; margin: 0; padding: 0;">
-                        <div id="left" style="height: 22px; background-color: #ECE9D8; margin: 0; padding: 0"></div>
+                        <div id="left" style="height: 22px; background-color: #ECE9D8; margin: 0; padding: 0">
+                            <img src="assets/word_icons/ruler.png" width="20px" style="margin: 2px 0 0 5px" alt="">
+                        </div>
                         <ul style="margin: 0; padding: 0; height: 22px" class="ruler ruler-x">
                              <!-- repeat -->
                         </ul>
@@ -148,15 +157,58 @@ display: flex; flex-direction: row; align-items: flex-start;">
                     <div id="last" style="width: 100%; height: 5px; margin:0; padding:0; background-color: #ECE9D8"></div>
                 </div>
             </div>
-            <div id="a4-paper"></div>
+            <div id="paper-ruler" class="horizontal_flex_start" style="height: 100%">
+                <div class="vertical_flex" id="vert-ruler" style="background-color: #fff; height: 100%;">
+                    <div style="height: 1%; width: 32px; background-color: #ECE9D8"></div>
+                    <div class="horizontal_flex_start" style="height: 99%;">
+                        <div style="width: 5px; height: 100%; margin:0; padding:0; background-color: #ECE9D8"></div>
+                        <ul style="padding: 0; width: 22px" class="ruler ruler-y">
+                            <!-- repeat -->
+                        </ul>
+                        <div style="width: 5px; height: 100%; margin:0; padding:0; background-color: #ECE9D8"></div>
+                    </div>
+                </div>
+                <div id="a4-paper" style="padding-left: 1in; font-size: 14px">
+                </div>
+            </div>
         </div>
         <div id="clippy" style="width: 10%; height: 100%;display: flex; align-items: end;">
             <img style="margin: 0 0 0 10%; min-width: 100px" width="80%" src="assets/would-you-like-help-clippy.gif" alt="">
         </div>
     </div>
-    <div class="menu" style="width: 100%; height: 24px;">
-        <div class="status-bar">
-            <img src="assets/drawing%20tl%20bar.jpg" height="24px" alt="">
+    <div class="menu" style="width: 100%;">
+        <div class="status-bar horizontal_flex">
+            <div class="horizontal_flex">
+                <p style="margin: 0 4px"><span style="text-decoration: underline">D</span>isegno</p>
+                <img src="assets/word_icons/undooptions.png" height="6px" alt="">
+            </div>
+            <img src="assets/word_icons/cursore.png" class="icon" alt="">
+            <div class="vertical_separator"></div>
+            <div class="horizontal_flex">
+                <p style="margin: 0 4px">Fo<span style="text-decoration: underline">r</span>me</p>
+                <img src="assets/word_icons/undooptions.png" height="6px" alt="">
+            </div>
+            <img src="assets/word_icons/linea.png" class="icon" alt="">
+            <img src="assets/word_icons/freccia.png" class="icon" alt="">
+            <img src="assets/word_icons/rettangolo.png" class="icon" alt="">
+            <img src="assets/word_icons/ellisse.png" class="icon" alt="">
+            <img src="assets/word_icons/qualcosatesto.png" class="icon" alt="">
+            <img src="assets/word_icons/wordart.png" class="icon" alt="">
+            <img src="assets/word_icons/pallini.png" class="icon" alt="">
+            <img src="assets/word_icons/clown.png" class="icon" alt="">
+            <img src="assets/word_icons/etna.png" class="icon" alt="">
+            <div class="vertical_separator"></div>
+            <img src="assets/word_icons/riempimentocolore.png" class="icon" alt="">
+            <img src="assets/word_icons/undooptions.png" class="icon" alt="">
+            <img src="assets/word_icons/pennello.png" class="icon" alt="">
+            <img src="assets/word_icons/undooptions.png" class="icon" alt="">
+            <img src="assets/word_icons/coloretesto.png" class="icon" alt="">
+            <img src="assets/word_icons/undooptions.png" class="icon" alt="">
+            <img src="assets/word_icons/righine.png" class="icon" alt="">
+            <img src="assets/word_icons/righinepallini.png" class="icon" alt="">
+            <img src="assets/word_icons/bilanceri.png" class="icon" alt="">
+            <img src="assets/word_icons/cose2d.png" class="icon" alt="">
+            <img src="assets/word_icons/cose3d.png" class="icon" alt="">
         </div>
     </div>
     <div class="menu" id="ms-status-bar" style="width: 100%;">
