@@ -13,8 +13,8 @@ function createTaskbar() {
     let time = document.createElement("div");
     time.setAttribute("class", "time");
 
-    if (true) {
-        taskbar.style.height = "100px";
+    if (isMobile()) {
+        taskbar.style.height = "120px";
         startButton.style.width = "180px";
         startButton.style.display = "flex";
         startButton.style.flexDirection = "row";

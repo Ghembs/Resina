@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="window vertical_flex" id="ms-word-page">
-    <div class="title-bar" style="width: 100%; box-sizing: border-box; height: 32px;">
+    <div class="title-bar" style="width: 100%; box-sizing: border-box;">
         <div class="title-bar-text" style="display: flex">
             <img src="assets/officexp%2032x32%20orig.png" width="24px" alt="">
             <div id="titolo" style="display: flex; align-items: center; margin-left: 8px"></div>
@@ -141,7 +141,7 @@
         </div>
     </div>
     <div class="window-body horizontal_flex" style="height: 100%; width: 100%; margin: 0 0 0 3px; padding: 0; overflow: hidden;">
-        <div id="ms-paper" style="width: 90%; height: 100%; overflow-y: scroll; overflow-x: scroll; margin: 0; padding: 0;">
+        <div id="ms-paper">
             <div class="menu" style="margin: 0; padding: 0; width: 100%; height: 32px; background-color: #fff;">
                 <div class="status-bar vertical_flex" style="width: 100%; padding: 0; margin: 0;">
                     <div id="first" style="width: 100%; height: 5px; margin:0; padding:0; background-color: #ECE9D8"></div>
@@ -168,15 +168,16 @@
                         <div style="width: 5px; height: 100%; margin:0; padding:0; background-color: #ECE9D8"></div>
                     </div>
                 </div>
-                <div id="a4-paper" style="padding-left: 1in; font-size: 14px">
+                <div id="pages" style="width: 100%">
+
                 </div>
             </div>
         </div>
-        <div id="clippy" style="width: 10%; height: 100%;display: flex; align-items: end;">
+        <div id="clippy">
             <img style="margin: 0 0 0 10%; min-width: 100px" width="80%" src="assets/would-you-like-help-clippy.gif" alt="">
         </div>
     </div>
-    <div class="menu" style="width: 100%;">
+    <div class="menu" id="draw-bar" style="width: 100%;">
         <div class="status-bar horizontal_flex">
             <div class="horizontal_flex">
                 <p style="margin: 0 4px"><span style="text-decoration: underline">D</span>isegno</p>

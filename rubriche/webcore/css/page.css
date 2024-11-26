@@ -19,6 +19,51 @@ body {
 
 #ms-paper {
     background: #ADA69C;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+/* MOBILE */
+@media (pointer: coarse){
+    #clippy, #vert-ruler, #main-menu, #draw-bar {
+        display: none;
+    }
+    #ms-paper {
+        width: 100%;
+    }
+    .a4-paper {
+        margin-left: 20%;
+        font-size: 2.3vw;
+    }
+    #ms-word-page .title-bar {
+        height: 64px;
+    }
+    #ms-word-page .title-bar .title-bar-controls button {
+        height: 48px;
+        margin-right: 15px;
+    }
+}
+
+/* COMPUTER */
+@media (pointer: fine), (pointer: none){
+    #ms-paper {
+        width: 90%;
+    }
+    #clippy {
+        width: 10%;
+        height: 100%;
+        display: flex;
+        align-items: end;
+    }
+    .a4-paper {
+        font-size: 1.5vw;
+    }
+   #ms-word-page .title-bar {
+        height: 32px;
+    }
 }
 
 #paper-ruler #vert-ruler {
@@ -27,7 +72,8 @@ body {
     width: 32px;
 }
 
-#a4-paper {
+.a4-paper {
+    box-sizing: border-box;
     background-color: white;
     max-height: 1754px;
     min-height: 658px;
@@ -37,6 +83,11 @@ body {
     margin-top: 1%;
     border: 1px solid black;
     box-shadow: 4px 2px #262626;
+    padding-left: 1in;
+    padding-right: 1in;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 #main-menu .status-bar{
