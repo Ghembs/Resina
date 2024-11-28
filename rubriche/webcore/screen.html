@@ -7,9 +7,17 @@
     <link rel="stylesheet" href="https://unpkg.com/xp.css">
     <script src="src/taskbar.js"></script>
     <script src="src/screen.js"></script>
+    <script src="../../header/src/includehtml.js" type="text/javascript"></script>
 </head>
 <body style="background: url('assets/Bliss(1920 x 1080).jpg' ) no-repeat center center fixed; background-size: cover;)">
-<div id="articoli" style="display: flex; flex-direction: column;"></div>
+<div id ="central">
+    <header style="color:black;
+    font-family: futura, sans-serif;
+    font-size: 20px;margin: 0 auto;width: 64%; height: 16.7%;" w3-include-html="http://0.0.0.0:8080/index.html">
+    </header>
+    <div id="articoli" style="display: flex; flex-direction: column; align-items: flex-start"></div>
+</div>
+<script>includeHTML();</script>
 <footer></footer>
 </body>
 </html>

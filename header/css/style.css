@@ -1,0 +1,106 @@
+/*
+#57265C Ricorrenze
+#264c5c Cordyceps
+#5c4326
+#3f5c26 Tagli
+#b19c83 Spore
+#d9c3db
+#b56719 on off
+#9019b5 webcore
+ */
+
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+    font-family: futura, sans-serif;
+}
+
+#faccia_by {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: flex-start;
+    position: absolute;
+    right: 0;
+    margin: 0;
+    padding-right: 5%;
+}
+
+#nuova_pubb {
+    width: 100%;
+    height: 65%;
+    background-color: #ffffff;
+    margin-top: 0;
+    padding: 0;
+    position: relative;
+    transition: all 2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#by {
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+    text-align: end;
+    position: relative;
+    left: 20%;
+    top: -73%;
+    padding-bottom: 5%;
+    width: 1em;
+    font-weight: bold;
+    transition: all 1s ease;
+}
+
+#preview_pic {
+    height: 100%;
+    width: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: all 1s ease;
+    filter: contrast(0.8) grayscale(0.5) opacity(0.8);
+}
+
+#preview_text {
+    padding: 5px;
+    height: 100%;
+    width: 50%;
+    transition: all 1s ease;
+
+    filter: opacity(0);
+}
+
+#preview_url {
+    width: 80%;
+    height: 100%;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: clip;
+}
+
+#banner_appalto {
+    width: 100%;
+    height: 35%;
+    background-image: url("/home/giuliano/Documenti/Resina/header/assets/banner_verde.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 2px -5px 50px #000000;
+}
+
+#banner_appalto img {
+    position: absolute;
+    bottom: -20%;
+    left: 45%;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../../header/src/includehtml.js" type="text/javascript"></script>
+</head>
+<body>
+    <script src="src/main.js"></script>
+    <canvas id="canvas"></canvas>
+    <div style="left: 0; position: fixed;" class="funghi" alt=""></div>
+    <div id ="central">
+        <header style="width: 80%; height: 20%;" w3-include-html="http://0.0.0.0:8080/index.html">
+            <!--iframe src="../../header/index.html"></iframe-->
+            <!--object type="text/html" data="../../header/index.html" style="width:500px; border:1px solid #ccc">
+                <p>backup content</p>
+            </object-->
+        </header>
+        <div id="middle">
+            <div id="title"></div>
+            <div id="content" style="color: white">
+            </div>
+        </div>
+    </div>
+    <div class="funghi" style="-webkit-transform: scaleX(-1);
+      transform: scaleX(-1); right: 0; position: fixed;" alt="">
+    </div>
+<script>includeHTML();</script>
+</body>
+</html>
+
+<!--filter: drop-shadow(5px 5px 2px #264C5C) 264C5C 84DB39 CD39DB DB9039 ->

@@ -31,7 +31,7 @@ function init () {
                     didascalia.style.fontSize = "24px";
                     //didascalia.style.webkitTextStroke = "1px black";
                     articolo.style.width = "150px";
-                    articolo.style.paddingTop = "10px";
+                    articolo.style.paddingTop = "1%";
                     //articolo.style.margin = "20px";
                     icona.width = 128;
                     icona.height = 128;
@@ -49,6 +49,8 @@ function init () {
                 articolo.appendChild(icona);
                 articolo.appendChild(didascalia);
                 articoli.appendChild(articolo);
+                icona.style.boxShadow = "2px 2px 10px black";
+                didascalia.style.textShadow = "2px 2px 2px black";
                 articolo.addEventListener('dblclick', () => {
                     window.location.href = "page.html?article=" + result[i].slug;
                 });
