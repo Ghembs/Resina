@@ -91,16 +91,15 @@ header {
 #banner_appalto {
     width: 100%;
     height: 35%;
-    background-image: url("/home/giuliano/Documenti/Resina/header/assets/banner_verde.png");
+    background-image: url("https://resina.threefaces.org/header/assets/banner_verde.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    text-align: center;
     position: relative;
     box-shadow: 2px -5px 50px #000000;
 }
 
 #banner_appalto img {
-    position: absolute;
-    bottom: -20%;
-    left: 45%;
+    margin-top: -1%;
 }

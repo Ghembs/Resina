@@ -16,7 +16,6 @@ function init () {
         data.then((result) => {
             const parser = new DOMParser();
             let articoli = document.getElementById("articoli");
-
             for (let i = 0; i < result.length; i++) {
                 const page = parser.parseFromString(result[i].content.rendered, "text/html");
                 let articolo = document.createElement("div");

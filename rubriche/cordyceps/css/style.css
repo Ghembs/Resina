@@ -18,6 +18,11 @@ body {
     align-items: flex-start;
 }
 
+p {
+    padding: 0;
+    margin: 0;
+}
+
 .funghi {
     height: 100%;
     width: 15%;
@@ -27,16 +32,56 @@ body {
     background-size: cover;
 }
 
+.artCordy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.artCordy a {
+    text-decoration: none;
+    color: #11F7F3;
+}
+
+.artCordy img {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.artCordy p {
+    transition: all 0.2s;
+    text-shadow: 0 5px 5px black;
+}
+
+.artCordy:hover a {
+    text-decoration: underline;
+}
+
+.artCordy:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 5px 5px #4C11F7);
+}
+
+.artCordy:hover p {
+    text-shadow: #4C11F7 0 5px 5px;
+}
+
 #content {
-    height: 100%;
-    background-color: rgba(10, 10, 10, 0.2);
+    height: 85%;
+    /*background-color: rgba(10, 10, 10, 0.2);*/
+    text-align: center;
+    font-size: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #title {
-    background-image: url("../assets/cordyceps.png");
+/*background-image: url("../assets/cordyceps.png");
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
+    background-position: center;*/
+    text-align: center;
 }
 
 #central {
@@ -52,7 +97,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 80%;
     width: 100%;
 }
 
@@ -64,6 +109,13 @@ body {
     #content {
         width: 80%;
     }
+    #title {
+        width: 80%;
+        height: 15%;
+    }
+    header {
+        width: 100%; height: 20%;
+    }
 }
 
 /* COMPUTER */
@@ -71,10 +123,23 @@ body {
     .funghi {}
 
     #content {
-        width: 80%;
+        width: 60%;
     }
     #title {
-        width: 80%;
+        width: 60%;
         height: 15%;
     }
+    header {
+        width: 75%; height: 20%;
+    }
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
