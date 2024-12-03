@@ -43,7 +43,7 @@ const localhost = "https://resina-wp.threefaces.org/wp-json/wp/v2"
 const urlUsers = `${localhost}/users?_fields[]=name&id=`
 const urlCategories = `${localhost}/categories?_fields[]=id&_fields[]=slug`;
 const urlPosts = `${localhost}/posts?_fields[]=id&_fields[]=categories&_fields[]=title&
-_fields[]=content&_fields[]=excerpt&_fields[]=author&categories=`
+_fields[]=content&_fields[]=excerpt&_fields[]=author&_fields[]=slug&categories=`
 
 let colors = {
     "cordyceps": "#264c5c",
@@ -124,7 +124,7 @@ function setPreview (article) {
     text.style.filter = "opacity(1)";
     text.innerText = excerpt.getElementsByTagName("p")[0].innerText;
     url.setAttribute("href", `https://resina.threefaces.org/rubriche/` +
-        categories[article.categories] + "/page.html?article=" + article.id);
+        categories[article.categories] + "/page.html?article=" + article.slug);
 }
 
 function resizeReset() {

@@ -4,17 +4,23 @@ const queryString = new URLSearchParams(window.location.search);
 const urlArticle = `${localhost}/posts?slug=` + queryString.get("article");
 
 if(queryString.get("article")) {
-    console.log(queryString.get("article"));
     const ftch = fetch(urlArticle);
-    console.log(urlArticle);
     ftch.then(res => {
         let data = res.json();
         data.then((result) => {
             const parser = new DOMParser();
-            let content = parser.parseFromString(result[0].content.rendered, "text/html").documentElement;
-            console.log(content);
+            let content = parser.parseFromString(result[0].content.rendered, "text/html");
             let contenuti = document.getElementById("content");
-            contenuti.innerHTML = content.innerHTML;
+            for (let i = 0; i < content.body.childNodes.length; i++) {
+                contenuti.appendChild(content.body.childNodes[i]);
+                if (contenuti.lastElementChild.getElementsByTagName("img").length){
+                    let img = document.createElement("img");
+                    img.src = contenuti.lastElementChild.getElementsByTagName("img")[0].src;
+                    contenuti.removeChild(contenuti.lastElementChild);
+                    contenuti.appendChild(img);
+                }
+            }
+            //contenuti.innerHTML = content.innerHTML;
             contenuti.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
             contenuti.style.color = "#649CF7"
         });

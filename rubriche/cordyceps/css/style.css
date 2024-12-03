@@ -10,6 +10,7 @@
 
 body {
     height: 100vh;
+    width: 100vw;
     padding: 0;
     margin: 0;
     background-color: #000;
@@ -88,7 +89,6 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
     height: 100%;
     margin: auto;
 }
@@ -106,12 +106,18 @@ p {
     .funghi {
         background-position: 70% center;
     }
+    #central {
+        width: 100%;
+    }
     #content {
         width: 80%;
     }
+    #content img {
+        max-width: 100%;
+    }
     #title {
         width: 80%;
-        height: 15%;
+        height: 10%;
     }
     header {
         width: 100%; height: 20%;
@@ -121,9 +127,14 @@ p {
 /* COMPUTER */
 @media (pointer: fine), (pointer: none){
     .funghi {}
-
+    #central {
+        width: 80%;
+    }
     #content {
         width: 60%;
+    }
+    #content img {
+        max-width: 80%;
     }
     #title {
         width: 60%;
