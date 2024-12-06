@@ -75,6 +75,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
 #title {
@@ -120,7 +121,7 @@ p {
         height: 10%;
     }
     header {
-        width: 100%; height: 20%;
+        width: 100%; height: 15%;
     }
 }
 

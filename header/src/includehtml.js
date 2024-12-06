@@ -120,18 +120,18 @@ function setPreview (article) {
     by.style.top = "0";
     pubb.style.backgroundColor = colors[categories[article.categories]]
     pic.style.backgroundImage ="url(" + rendered.getElementsByTagName("img")[0].src + ")";
-    pic.style.filter = "opacity(1)";
+    pic.style.filter = "opacity(0.8)";
     text.style.filter = "opacity(1)";
     text.innerText = excerpt.getElementsByTagName("p")[0].innerText;
     url.setAttribute("href", `https://resina.threefaces.org/rubriche/` +
         categories[article.categories] + "/page.html?article=" + article.slug);
 }
 
-function resizeReset() {
-    //w = document.getElementsByTagName("header")[0].offsetWidth;
-    //h = document.getElementsByTagName("header")[0].offsetHeight;
-
-    //by.style.width = h / 2 + "px";
-}
+// function resizeReset() {
+//     //w = document.getElementsByTagName("header")[0].offsetWidth;
+//     //h = document.getElementsByTagName("header")[0].offsetHeight;
+//
+//     //by.style.width = h / 2 + "px";
+// }
 
 document.addEventListener("DOMContentLoaded", init);
