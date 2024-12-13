@@ -1,0 +1,245 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2em;
+    overflow-x: clip;
+    overflow-y: scroll;
+}
+
+#canvas {
+    transition: all 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    background-color: #fff;
+}
+
+#fontanaCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+:root {
+    --bg-color: rgb(240, 240, 240);
+    --margin-line-color: rgba(45, 12, 12, 0.7); /*#ec7063;*/
+    --ruling-line-color: rgba(30, 30, 55, 0.5); /*#85c1e9;*/
+}
+
+.info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    min-width: 200px;
+    text-align: left;
+}
+
+.titolo {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    padding-top: .2rem;
+    padding-bottom: 1em;
+    background-image: linear-gradient(90deg, transparent 2em, var(--margin-line-color) 2em, var(--margin-line-color) 2.1em, transparent 2.1em), linear-gradient(var(--ruling-line-color) .1em, transparent .1em);
+    background-size: 100% 1.2em;
+    line-height: 1.2;
+    font-size: 1.2em;
+    overflow-y: clip;
+}
+
+.under_scotch {
+    position: absolute;
+    z-index: -1;
+}
+
+.full_coverage {
+    width: 100%;
+    height: 100%;
+}
+
+.riquadro {
+    height: 35vw;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2% auto;
+}
+
+.riquadro_vert {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 2% 0;
+}
+
+
+
+.img-tape {
+    position: relative;
+    display: inline-block;
+    /* margin: 5% auto;
+    display: inline-block; */
+
+    &:before,
+    &:after {
+        background: rgba(255,255,255,.4);
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        content: "";
+        display: block;
+        height: 2em;
+        position: absolute;
+        margin: auto;
+        width: 7em;
+    }
+    img {
+        /*background: #fff;
+        margin: 0 20px;
+        display: inline-block;
+        height: auto;
+        filter: url(#filter);
+        padding: 8px;*/
+        position: relative;
+        z-index: -1;
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        max-width: 100%;
+        min-width: 75%;
+        text-align: center;
+        vertical-align: top;
+    }
+}
+.img-tape--1 {
+    &:before {
+        left: 50%;
+        margin-left: -2em;
+        top: -0.6em;
+    }
+
+    &:after {
+        display: none;
+    }
+}
+
+.img-tape--2 {
+    &:before {
+        left: -2em;
+        top: 0;
+        transform: rotate(-35deg);
+    }
+
+    &:after {
+        right: -2em;
+        top: 5px;
+        transform: rotate(45deg);
+    }
+}
+
+.img-tape--3 {
+    &:before {
+        left: -1.8em;
+        top: -5px;
+        transform: rotate(-45deg);
+    }
+
+    &:after {
+        bottom: 0;
+        right: -2.2em;
+        transform: rotate(-35deg);
+    }
+}
+
+.img-tape--4 {
+    &:before {
+        left: -3em;
+        margin-top: -0.6em;
+        top: 50%;
+        transform: rotate(93deg);
+    }
+
+    &:after {
+        margin-top: -2em;
+        right: -3.5em;
+        top: 50%;
+        transform: rotate(89deg);
+    }
+}
+
+/* MOBILE */
+@media (pointer: coarse), (max-width: 750px){
+    header {
+        font-size: 2vh;
+        max-height: 30vw;
+        max-width: 750px;
+        min-width: 500px;
+        filter: sepia(80%) saturate(40%);
+    }
+    body {
+        font-size: 2vh;
+    }
+    html, body {
+        overflow: hidden;
+    }
+    #content{
+        width: 100%;
+    }
+    .riquadro, .riiquadro_vert {
+        width:100%;
+    }
+}
+
+
+/* COMPUTER */
+@media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
+    header {
+        font-size: 2vh;
+        margin: 0 auto;
+        max-height: 250px;
+        max-width: 1200px;
+        min-width: 500px;
+        filter: sepia(80%) saturate(40%); /*blur(1px);*/
+    }
+    #content{
+        width: 100%;
+    }
+    .riquadro, .riquadro_vert {
+        width:90%;
+    }
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../header/src/includehtml.js" type="text/javascript"></script>
+    <script src="src/main.js"></script>
+    <!--script src="src/static.js"></script-->
+    <script defer src="src/tagli.js"></script>
+    <title>Tagli</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg>
+    <defs id="definitions">
+        <filter id="filter" height="1.4" width="1.4">
+            <feTurbulence id="turbu" seed="" type="turbulence" numOctaves="12" baseFrequency="0.01" result="result1" />
+            <feDisplacementMap id="displa" in2="result1" scale="70" result="result2" xChannelSelector="A" in="SourceGraphic" />
+            <feComposite in2="result2" in="SourceGraphic" operator="in" result="fbSourceGraphic" />
+            <feDropShadow dx="1" dy="1" stdDeviation="2" />
+        </filter>
+    </defs>
+    <!--rect fill="rgba()" filter="url(#filter) " width="95%" height="95%" x="0" y="0" /-->
+</svg>
+<div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+    <header w3-include-html="https://resina.threefaces.org/header/index.html"></header>
+    <div id="content">
+    </div>
+</div>
+<script>
+    includeHTML()
+</script>
+<!--canvas id="canvas"></canvas-->
+<canvas id="fontanaCanvas"></canvas>
+</body>
+</html>

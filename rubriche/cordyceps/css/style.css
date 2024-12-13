@@ -103,7 +103,7 @@ p {
 }
 
 /* MOBILE */
-@media (pointer: coarse){
+@media (pointer: coarse), (max-width: 750px){
     .funghi {
         background-position: 70% center;
     }
@@ -121,12 +121,15 @@ p {
         height: 10%;
     }
     header {
-        width: 100%; height: 15%;
+        font-size: 2vh;
+        max-height: 30vw;
+        max-width: 750px;
+        min-width: 500px;
     }
 }
 
 /* COMPUTER */
-@media (pointer: fine), (pointer: none){
+@media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
     .funghi {}
     #central {
         width: 80%;
@@ -142,7 +145,11 @@ p {
         height: 15%;
     }
     header {
-        width: 75%; height: 20%;
+        font-size: 2vh;
+        margin: 0 auto;
+        max-height: 250px;
+        max-width: 1200px;
+        min-width: 500px;
     }
 }
 
