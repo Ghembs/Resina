@@ -36,7 +36,6 @@ a {
 #content {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: start;
     justify-content: flex-start;
     margin: 0;
@@ -98,7 +97,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 2% 0;
+    margin: 2% auto;
 }
 
 
