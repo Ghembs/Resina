@@ -192,7 +192,7 @@ a {
 }
 
 /* MOBILE */
-@media (pointer: coarse), (max-width: 750px){
+@media (pointer: coarse), (pointer: fine) and (max-width: 750px), (pointer: none) and (max-width: 750px){
     header {
         font-size: 2vh;
         max-height: 30vw;
@@ -212,6 +212,15 @@ a {
     .riquadro, .riiquadro_vert {
         width:100%;
     }
+    .autoTitolo {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        min-width: 10em;
+        min-height: 3em;
+        padding-bottom: 5%;
+    }
 }
 
 
@@ -230,6 +239,15 @@ a {
     }
     .riquadro, .riquadro_vert {
         width:90%;
+    }
+    .autoTitolo {
+        position: absolute;
+        right: 5%;
+        top: 5%;
+        width: 25%;
+        minWidth: 10em;
+        height: 10%;
+        minHeight: 3em;
     }
 }
 

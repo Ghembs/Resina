@@ -61,16 +61,22 @@ window.onload = function(){
                 const titolo = item.title.rendered;
                 img = document.createElement("img");
 
-                for (let j = 0; j < rendered.body.children.length; j++) {
-                    if (rendered.body.children[j].innerHTML.indexOf("Autore: ") >= 0) {
-                        autore = rendered.body.children[j].innerText.replace("Autore: ", "");
-                    } else if (rendered.body.children[j].getElementsByTagName("img").length > 0) {
-                        src = rendered.body.children[j].firstChild.src;
-                    } else {
-                        rendered.body.children[j].style.paddingLeft = "2.2em";
-                        rendered.body.children[j].style.marginTop = "1.2em";
-                        testo.appendChild(rendered.body.children[j]);
+                while (rendered.body.hasChildNodes()) {
+                    let child = rendered.body.removeChild(rendered.body.firstChild);
+                    if (child.innerHTML !== undefined) {
+                        if (child.getElementsByTagName("img").length > 0) {
+                            src = child.firstChild.src;
+                        } else {
+                            if (child.innerHTML.indexOf("Autore: ") >= 0) {
+                                autore = child.innerText.replace("Autore: ", "");
+                            } else {
+                                child.style.paddingLeft = "2.2em";
+                                child.style.marginTop = "1.2em";
+                                testo.appendChild(child);
+                            }
+                        }
                     }
+
                 }
 
                 let back = document.createElement("a");
@@ -100,14 +106,7 @@ window.onload = function(){
                 scotchPic.style.width = "100%"
                 //riquadro.style.width = "90%"
 
-                test.style.position = "absolute";
-                test.style.right = "5%";
-                test.style.top = "5%";
-                test.style.width = "25%";
-                test.style.minWidth = "10em";
-                test.style.height = "10%";
-                test.style.minHeight = "3em";
-                test.classList.add("img-tape", "img-tape--1");
+                test.classList.add("img-tape", "img-tape--1", "autoTitolo");
                 testino.style.backgroundColor = "white";
                 testino.style.filter = "url(#" + filterSmooth.id + ")";
                 testino.classList.add("titolo", "under_scotch");
