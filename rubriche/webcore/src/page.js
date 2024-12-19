@@ -31,9 +31,9 @@ async function createPages(result) {
         }
     }
 
-    let titolo = document.getElementsByTagName("h1")[0];
+    let titolo = result[0].title.rendered;
     let titoloPagina = document.getElementById("titolo");
-    titoloPagina.innerText = titolo.innerText + " - Microsoft Word";
+    titoloPagina.innerText = titolo + " - Microsoft Word";
     document.title = titolo.innerText;
 }
 

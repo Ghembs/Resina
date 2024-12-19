@@ -22,7 +22,7 @@ function init () {
                 let icona = document.createElement("img");
                 let didascalia = document.createElement("p");
                 icona.src = page.getElementsByTagName("img")[0].src;
-                didascalia.innerText = page.getElementsByTagName("h1")[0].innerText;
+                didascalia.innerText = result[i].title.rendered;
                 didascalia.style.margin = "0";
                 didascalia.style.color = "white";
 

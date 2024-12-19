@@ -76,20 +76,14 @@ window.onload = function(){
                             }
                         }
                     }
-
                 }
-
-                let back = document.createElement("a");
-                back.innerText = "TAGLI";
-                back.href = "page.html";
-                content.appendChild(back);
 
                 //let filter = createFilter(0);
                 let filterSmooth = createFilter(0, true);
 
                 distorco.style.backgroundColor = "white";
-                distorco.classList.add("under_scotch");
-                distorco.style.filter = "url(#" + filterSmooth.id + ")";
+                distorco.classList.add("under_scotch", "distorted_paper");
+                //distorco.style.filter = "url(#" + filterSmooth.id + ")";
                 info.style.width = "100%";
                 autoTitolo.style.width = "98%";
                 img.src = src // https://d1jyxxz9imt9yb.cloudfront.net/animal/283/meta_image/regular/panda_1.jpg
@@ -110,7 +104,7 @@ window.onload = function(){
                 testino.style.backgroundColor = "white";
                 testino.style.filter = "url(#" + filterSmooth.id + ")";
                 testino.classList.add("titolo", "under_scotch");
-                testino.innerHTML = "<p style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
+                testino.innerHTML = "<p class='distorted_paper' style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
                 distorco.appendChild(autoTitolo);
                 scotchPic.appendChild(img);
                 riquadro.appendChild(scotchPic);
@@ -148,7 +142,7 @@ window.onload = function(){
                     let filterSmooth = createFilter(i, true);
 
                     distorco.style.backgroundColor = "white";
-                    distorco.classList.add("under_scotch", "full_coverage");
+                    distorco.classList.add("under_scotch", "full_coverage", "distorted_paper");
                     distorco.style.filter = "url(#" + filterSmooth.id + ")";
                     img.style.backgroundImage = "url('" + src + "')" // https://d1jyxxz9imt9yb.cloudfront.net/animal/283/meta_image/regular/panda_1.jpg
                     img.style.backgroundRepeat = "no-repeat";
@@ -162,7 +156,7 @@ window.onload = function(){
                     info.classList.add("info", "img-tape", "img-tape--1");
                     riquadro.classList.add("riquadro");
                     riquadro.href = "?article=" + item.slug;
-                    scotchPic.style.width = "75%";
+                    scotchPic.style.width = "65%";
                     scotchPic.classList.add("img-tape", "img-tape--" + getRandomInt(1, 4));
 
                     test.style.position = "absolute";
@@ -176,7 +170,7 @@ window.onload = function(){
                     testino.style.backgroundColor = "white";
                     testino.style.filter = "url(#" + filterSmooth.id + ")";
                     testino.classList.add("titolo", "under_scotch", "full_coverage");
-                    testino.innerHTML = "<p style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
+                    testino.innerHTML = "<p class='distorted_paper' style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
                     distorco.appendChild(autoTitolo);
                     scotchPic.appendChild(img);
                     riquadro.appendChild(scotchPic);

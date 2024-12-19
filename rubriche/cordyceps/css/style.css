@@ -15,8 +15,19 @@ body {
     margin: 0;
     background-color: #000;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
+}
+
+body header {
+    position: relative;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    height: 30vw;
+    max-width: 1200px;
+    min-width: 500px;
 }
 
 p {
@@ -98,7 +109,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80%;
+    height: 100%;
     width: 100%;
 }
 
@@ -120,11 +131,8 @@ p {
         width: 80%;
         height: 10%;
     }
-    header {
-        font-size: 2vh;
-        max-height: 30vw;
-        max-width: 750px;
-        min-width: 500px;
+    body header {
+        font-size: 1.3vh;
     }
 }
 
@@ -144,12 +152,8 @@ p {
         width: 60%;
         height: 15%;
     }
-    header {
-        font-size: 2vh;
-        margin: 0 auto;
-        max-height: 250px;
-        max-width: 1200px;
-        min-width: 500px;
+    body header {
+        font-size: 1.5vw;
     }
 }
 

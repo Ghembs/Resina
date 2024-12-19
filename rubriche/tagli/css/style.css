@@ -10,6 +10,18 @@ body {
     font-size: 1.2em;
     overflow-x: clip;
     overflow-y: scroll;
+    font-family: "courier new", courier, monospace;
+}
+
+body header {
+    position: relative;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    height: 30vw;
+    max-width: 1200px;
+    min-width: 500px;
 }
 
 #canvas {
@@ -41,7 +53,6 @@ a {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 100vh;
     overflow-y: scroll;
 }
 
@@ -55,7 +66,7 @@ a {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 25%;
+    width: 35%;
     min-width: 200px;
     text-align: left;
 }
@@ -64,17 +75,17 @@ a {
     position: relative;
     width: 90%;
     height: 90%;
-    padding-top: .2rem;
+    padding-top: .5rem;
     padding-bottom: 1em;
     background-image: linear-gradient(90deg, transparent 2em, var(--margin-line-color) 2em, var(--margin-line-color) 2.1em, transparent 2.1em), linear-gradient(var(--ruling-line-color) .1em, transparent .1em);
     background-size: 100% 1.2em;
-    line-height: 1.2;
+    line-height: 1.25em;
     font-size: 1.2em;
     overflow-y: clip;
 }
 
 .under_scotch {
-    position: absolute;
+    position: relative;
     z-index: -1;
 }
 
@@ -83,13 +94,17 @@ a {
     height: 100%;
 }
 
+.distorted_paper {
+    background-image: url('../assets/weathered_paper.png')
+}
+
 .riquadro {
-    height: 35vw;
+    height: 25%;
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 2% auto;
+    margin: 1% auto;
 }
 
 .riquadro_vert {
@@ -97,7 +112,8 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 2% auto;
+    width: 100%;
+    margin: 1% auto;
 }
 
 
@@ -192,12 +208,9 @@ a {
 }
 
 /* MOBILE */
-@media (pointer: coarse), (pointer: fine) and (max-width: 750px), (pointer: none) and (max-width: 750px){
+@media (pointer: coarse),(max-width: 750px){
     header {
-        font-size: 2vh;
-        max-height: 30vw;
-        max-width: 750px;
-        min-width: 500px;
+        font-size: 1.3vh;
         filter: sepia(80%) saturate(40%);
     }
     body {
@@ -227,11 +240,7 @@ a {
 /* COMPUTER */
 @media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
     header {
-        font-size: 2vh;
-        margin: 0 auto;
-        max-height: 250px;
-        max-width: 1200px;
-        min-width: 500px;
+        font-size: 1.5vw;
         filter: sepia(80%) saturate(40%); /*blur(1px);*/
     }
     #content{
@@ -244,10 +253,10 @@ a {
         position: absolute;
         right: 5%;
         top: 5%;
-        width: 25%;
-        minWidth: 10em;
+        width: 30%;
+        min-width: 10em;
         height: 10%;
-        minHeight: 3em;
+        min-height: 3em;
     }
 }
 

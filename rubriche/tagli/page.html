@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<svg>
+<header w3-include-html="http://localhost:8080/index.html"></header>
+<svg style="display: none">
     <defs id="definitions">
         <filter id="filter" height="1.4" width="1.4">
             <feTurbulence id="turbu" seed="" type="turbulence" numOctaves="12" baseFrequency="0.01" result="result1" />
@@ -21,9 +22,9 @@
     </defs>
     <!--rect fill="rgba()" filter="url(#filter) " width="95%" height="95%" x="0" y="0" /-->
 </svg>
-<div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: center;">
-    <header w3-include-html="http://localhost:8080/index.html"></header>
-    <div id="content">
+<div style="position: relative; height: 100%; width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center; overflow-y: scroll;">
+    <a href="page.html" style="width: 20%"><img src="assets/tagli.png" width="100%" alt=""></a>
+    <div id="content" style="margin-bottom: 4em">
     </div>
 </div>
 <script>

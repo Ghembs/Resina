@@ -20,15 +20,19 @@ function init() {
     let header = document.getElementsByTagName("header")[0];
     let parser = new DOMParser();
     resizeReset();
+    trees = [];
+    animationLoop();
+    trees.push(new Micelya());
+    drawGround();
 }
 
 function resizeReset() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
 
-    trees = [];
-    animationLoop();
-    trees.push(new Micelya());
+    //trees = [];
+    //animationLoop();
+    //trees.push(new Micelya());
     //drawGround();
 }
 
