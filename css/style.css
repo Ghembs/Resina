@@ -1,0 +1,185 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: clip;
+    /*background: radial-gradient(ellipse at center, #ff3cac 0%, #784ba0 40%, #2b86c5 100%);*/
+    background-image: url("../assets/legno.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+}
+
+body header {
+    position: relative;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    height: 30vw;
+    max-width: 1200px;
+    min-width: 500px;
+}
+
+#central {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gemma {
+}
+
+#cordyceps {
+    background: url("../assets/animate/cordyceps/0000.png");
+    filter: hue-rotate(70deg) saturate(45%) brightness(70%);
+    /*
+    background-attachment: fixed;*/
+    animation: playCordyceps 1.5s infinite steps(1);
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+#post-office {
+    background: url("../assets/animate/post-office/0001.png");
+    /*
+    background-attachment: fixed;*/
+    animation: playPost 1.5s infinite steps(1);
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+#spore {
+    background: url("../assets/animate/spore/0000.png");
+    /*
+    background-attachment: fixed;*/
+    animation: playSpore 1.5s infinite steps(1);
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+#tagli {
+    background: url("../assets/animate/tagli/0000.png");
+    /*
+    background-attachment: fixed;*/
+    animation: playTagli 1.5s infinite steps(1);
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+#webcore {
+    background: url("../assets/animate/webcore/0000.png");
+    /*
+    background-attachment: fixed;*/
+    animation: playWebcore 1.5s infinite steps(1);
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+#mistery {
+    background: url("../assets/animate/gemmavuota.png");
+    /*
+    background-attachment: fixed;*/
+    transition: all 1s ease;
+    animation-play-state: running;
+}
+
+.gemma:hover {
+    animation-play-state:paused;
+    transform: scale(110%);
+}
+
+@keyframes playCordyceps {
+    0%   { background-image: url('../assets/animate/cordyceps/0000.png'); }
+    10%   { background-image: url('../assets/animate/cordyceps/0002.png'); }
+    20%   { background-image: url('../assets/animate/cordyceps/0004.png'); }
+    30%   { background-image: url('../assets/animate/cordyceps/0006.png'); }
+    40%   { background-image: url('../assets/animate/cordyceps/0008.png'); }
+    50%   { background-image: url('../assets/animate/cordyceps/0010.png'); }
+    60%   { background-image: url('../assets/animate/cordyceps/0012.png'); }
+    70%   { background-image: url('../assets/animate/cordyceps/0014.png'); }
+    80%   { background-image: url('../assets/animate/cordyceps/0016.png'); }
+    90%   { background-image: url('../assets/animate/cordyceps/0018.png'); }
+}
+
+@keyframes playPost {
+    0%   { background-image: url('../assets/animate/post-office/0001.png'); }
+    10%   { background-image: url('../assets/animate/post-office/0003.png'); }
+    20%   { background-image: url('../assets/animate/post-office/0005.png'); }
+    30%   { background-image: url('../assets/animate/post-office/0007.png'); }
+    40%   { background-image: url('../assets/animate/post-office/0009.png'); }
+    50%   { background-image: url('../assets/animate/post-office/0011.png'); }
+    60%   { background-image: url('../assets/animate/post-office/0013.png'); }
+    70%   { background-image: url('../assets/animate/post-office/0015.png'); }
+    80%   { background-image: url('../assets/animate/post-office/0017.png'); }
+    90%   { background-image: url('../assets/animate/post-office/0019.png'); }
+}
+
+@keyframes playSpore {
+    0%   { background-image: url('../assets/animate/spore/0000.png'); }
+    10%   { background-image: url('../assets/animate/spore/0002.png'); }
+    20%   { background-image: url('../assets/animate/spore/0004.png'); }
+    30%   { background-image: url('../assets/animate/spore/0006.png'); }
+    40%   { background-image: url('../assets/animate/spore/0008.png'); }
+    50%   { background-image: url('../assets/animate/spore/0010.png'); }
+    60%   { background-image: url('../assets/animate/spore/0012.png'); }
+    70%   { background-image: url('../assets/animate/spore/0014.png'); }
+    80%   { background-image: url('../assets/animate/spore/0016.png'); }
+    90%   { background-image: url('../assets/animate/spore/0018.png'); }
+}
+
+@keyframes playTagli {
+    0%   { background-image: url('../assets/animate/tagli/0000.png'); }
+    10%   { background-image: url('../assets/animate/tagli/0002.png'); }
+    20%   { background-image: url('../assets/animate/tagli/0004.png'); }
+    30%   { background-image: url('../assets/animate/tagli/0006.png'); }
+    40%   { background-image: url('../assets/animate/tagli/0008.png'); }
+    50%   { background-image: url('../assets/animate/tagli/0010.png'); }
+    60%   { background-image: url('../assets/animate/tagli/0012.png'); }
+    70%   { background-image: url('../assets/animate/tagli/0014.png'); }
+    80%   { background-image: url('../assets/animate/tagli/0016.png'); }
+    90%   { background-image: url('../assets/animate/tagli/0018.png'); }
+}
+
+@keyframes playWebcore {
+    0%   { background-image: url('../assets/animate/webcore/0000.png'); }
+    10%   { background-image: url('../assets/animate/webcore/0002.png'); }
+    20%   { background-image: url('../assets/animate/webcore/0004.png'); }
+    30%   { background-image: url('../assets/animate/webcore/0006.png'); }
+    40%   { background-image: url('../assets/animate/webcore/0008.png'); }
+    50%   { background-image: url('../assets/animate/webcore/0010.png'); }
+    60%   { background-image: url('../assets/animate/webcore/0012.png'); }
+    70%   { background-image: url('../assets/animate/webcore/0014.png'); }
+    80%   { background-image: url('../assets/animate/webcore/0016.png'); }
+    90%   { background-image: url('../assets/animate/webcore/0018.png'); }
+}
+
+/* MOBILE */
+@media (pointer: coarse),(max-width: 750px){
+    body header {
+        font-size: 1.3vh;
+    }
+    #central {
+        width: 100%;
+    }
+    #central img {
+        max-width: 70%;
+    }
+}
+
+
+/* COMPUTER */
+@media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
+    body header {
+        font-size: 1vw;
+    }
+    #central img {
+        max-width: 60%;
+    }
+}
