@@ -458,10 +458,11 @@ function clickMouse (e) {
 
 function touch (evt) {
     let touches = evt.touches;
-    touches.forEach(touch => {
+    for (let i = 0; i < touches.length; i++) {
+        const touch = touches[i];
         let e = {x: touch.x, y: touch.y};
         clickMouse(e);
-    })
+    }
 }
 
 function mouseHover(e) {
@@ -565,10 +566,10 @@ class DotDrawer {
 
     wrap (width, height) {
         if (this.pos.x <= 0) this.pos.x += width;
-        if (this.pos.y <= 0 || (isMobile() && (this.pos.y <= height * 16 / 100))) this.pos.y = height;
+        if (this.pos.y <= 0 || (isMobile() && (this.pos.y <= height * 12 / 100))) this.pos.y = height;
 
         if (this.pos.x >= width) this.pos.x = 0;
-        if (this.pos.y > height) isMobile()? this.pos.y = height * 16 / 100 : this.pos.y = 0;
+        if (this.pos.y > height) isMobile()? this.pos.y = height * 12 / 100 : this.pos.y = 0;
     }
 }
 

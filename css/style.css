@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-x: clip;
+    overflow-y: scroll;
     /*background: radial-gradient(ellipse at center, #ff3cac 0%, #784ba0 40%, #2b86c5 100%);*/
     background-image: url("../assets/legno.png");
     background-repeat: no-repeat;
@@ -26,6 +27,15 @@ body header {
     min-width: 500px;
 }
 
+footer {
+    color: white;
+    font-family: 'courier new', courier, monospace;
+}
+
+footer a {
+    color: white;
+}
+
 #central {
     position: relative;
     display: flex;
@@ -37,9 +47,13 @@ body header {
 }
 
 #cordyceps {
-    background: url("../assets/animate/cordyceps/0000.png");
-    filter: hue-rotate(70deg) saturate(45%) brightness(70%);
-    /*
+    background: url("../assets/animate/cordyceps/0000.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
+    /*filter: hue-rotate(70deg) saturate(45%) brightness(70%);
+
     background-attachment: fixed;*/
     animation: playCordyceps 1.5s infinite steps(1);
     transition: all 1s ease;
@@ -47,7 +61,11 @@ body header {
 }
 
 #post-office {
-    background: url("../assets/animate/post-office/0001.png");
+    background: url("../assets/animate/post-office/0000.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
     /*
     background-attachment: fixed;*/
     animation: playPost 1.5s infinite steps(1);
@@ -56,7 +74,11 @@ body header {
 }
 
 #spore {
-    background: url("../assets/animate/spore/0000.png");
+    background: url("../assets/animate/spore/0000.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
     /*
     background-attachment: fixed;*/
     animation: playSpore 1.5s infinite steps(1);
@@ -65,7 +87,11 @@ body header {
 }
 
 #tagli {
-    background: url("../assets/animate/tagli/0000.png");
+    background: url("../assets/animate/tagli/0000.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
     /*
     background-attachment: fixed;*/
     animation: playTagli 1.5s infinite steps(1);
@@ -74,7 +100,11 @@ body header {
 }
 
 #webcore {
-    background: url("../assets/animate/webcore/0000.png");
+    background: url("../assets/animate/webcore/0000.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
     /*
     background-attachment: fixed;*/
     animation: playWebcore 1.5s infinite steps(1);
@@ -83,7 +113,11 @@ body header {
 }
 
 #mistery {
-    background: url("../assets/animate/gemmavuota.png");
+    background: url("../assets/animate/gemmavuota.png") no-repeat center;
+    background-size: contain;
+    width: 18%;
+    height: 18%;
+    position: absolute;
     /*
     background-attachment: fixed;*/
     transition: all 1s ease;
@@ -109,16 +143,16 @@ body header {
 }
 
 @keyframes playPost {
-    0%   { background-image: url('../assets/animate/post-office/0001.png'); }
-    10%   { background-image: url('../assets/animate/post-office/0003.png'); }
-    20%   { background-image: url('../assets/animate/post-office/0005.png'); }
-    30%   { background-image: url('../assets/animate/post-office/0007.png'); }
-    40%   { background-image: url('../assets/animate/post-office/0009.png'); }
-    50%   { background-image: url('../assets/animate/post-office/0011.png'); }
-    60%   { background-image: url('../assets/animate/post-office/0013.png'); }
-    70%   { background-image: url('../assets/animate/post-office/0015.png'); }
-    80%   { background-image: url('../assets/animate/post-office/0017.png'); }
-    90%   { background-image: url('../assets/animate/post-office/0019.png'); }
+    0%   { background-image: url('../assets/animate/post-office/0000.png'); }
+    10%   { background-image: url('../assets/animate/post-office/0002.png'); }
+    20%   { background-image: url('../assets/animate/post-office/0004.png'); }
+    30%   { background-image: url('../assets/animate/post-office/0006.png'); }
+    40%   { background-image: url('../assets/animate/post-office/0008.png'); }
+    50%   { background-image: url('../assets/animate/post-office/0010.png'); }
+    60%   { background-image: url('../assets/animate/post-office/0012.png'); }
+    70%   { background-image: url('../assets/animate/post-office/0014.png'); }
+    80%   { background-image: url('../assets/animate/post-office/0016.png'); }
+    90%   { background-image: url('../assets/animate/post-office/0018.png'); }
 }
 
 @keyframes playSpore {
@@ -171,6 +205,10 @@ body header {
     #central img {
         max-width: 70%;
     }
+    footer {
+        font-size: 1.5vh;
+        margin-top: 10%;
+    }
 }
 
 
@@ -182,4 +220,17 @@ body header {
     #central img {
         max-width: 60%;
     }
+    footer {
+        margin-top: 5%;
+    }
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
