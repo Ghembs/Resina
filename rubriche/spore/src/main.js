@@ -324,7 +324,8 @@ if(queryString.get("article")) {
         let data = res.json();
         data.then((result) => {
             console.log(result);
-            let contenuti = document.createElement("div");
+            let contenuti = document.getElementsByClassName('contenuti')[0];
+            let center = document.createElement("div");
             let back = document.createElement("a");
             let body = document.getElementsByTagName("body")[0];
             let title = document.createElement("h1");
@@ -334,26 +335,26 @@ if(queryString.get("article")) {
             back.innerText = "Spore >";
             back.classList.add("back");
             contenuti.appendChild(back);
-            contenuti.appendChild(title);
-            contenuti.classList.add("contenuti");
+            center.appendChild(title);
+            center.classList.add("center");
 
             const parser = new DOMParser();
             let content = parser.parseFromString(result[0].content.rendered, "text/html");
-            // let contenuti = document.getElementById("content");
+            // let center = document.getElementById("content");
             for (let i = 0; i < content.body.childNodes.length; i++) {
-                contenuti.appendChild(content.body.childNodes[i]);
-                if (contenuti.lastElementChild.getElementsByTagName("img").length){
+                center.appendChild(content.body.childNodes[i]);
+                if (center.lastElementChild.getElementsByTagName("img").length){
                     let img = document.createElement("img");
-                    img.src = contenuti.lastElementChild.getElementsByTagName("img")[0].src;
+                    img.src = center.lastElementChild.getElementsByTagName("img")[0].src;
                     img.style.maxWidth = "80%";
-                    contenuti.removeChild(contenuti.lastElementChild);
-                    contenuti.appendChild(img);
+                    center.removeChild(center.lastElementChild);
+                    center.appendChild(img);
                 }
             }
-            body.appendChild(contenuti);
-            // //contenuti.innerHTML = content.innerHTML;
-            // contenuti.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
-            // contenuti.style.color = "#649CF7"
+            contenuti.appendChild(center);
+            // //center.innerHTML = content.innerHTML;
+            // center.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+            // center.style.color = "#649CF7"
         });
     });
 } else {
