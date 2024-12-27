@@ -1,4 +1,4 @@
-let righe;
+let righe, poesie;
 // URL DEPOSE https://resina-wp.threefaces.org/wp-json/wp/v2/posts?tags=12
 // URL AUTORI https://resina-wp.threefaces.org/wp-json/wp/v2/tags/10?_fields[]=name
 
@@ -28,6 +28,35 @@ function displayTextWidth(text, font) {
     return metrics.width;
 }
 
+function displayPoetry (title) {
+    const poesia = document.createElement("div");
+    let already = document.getElementsByClassName("poesia")[0];
+    if (already) {
+        already.parentNode.removeChild(already);
+    }
+    poesia.classList.add("poesia");
+    poesia.onclick = () => {
+        poesia.parentNode.removeChild(poesia);
+    }
+    const titolo = document.createElement("h2");
+    titolo.innerText = title;
+    poesia.appendChild(titolo);
+    poesie[title].testo.forEach(verso => {
+        const paragrafo = document.createElement("p");
+        paragrafo.innerText = verso;
+        poesia.appendChild(paragrafo);
+    })
+    const autore = document.createElement("a");
+    autore.href = poesie[title].url;
+    autore.innerText = poesie[title].autore;
+    autore.style.position = "absolute";
+    autore.style.right = "10px";
+    autore.style.fontSize = "2em";
+    autore.style.color = "darkgray";
+    poesia.appendChild(autore);
+    document.body.appendChild(poesia);
+}
+
 function writeDepose (result, contenuti) {
     let temp = [];
     result.map((item) => {
@@ -38,11 +67,14 @@ function writeDepose (result, contenuti) {
     contenuti.appendChild(back);
     while (temp.length) {
         let row = document.createElement("p");
-        let extract =temp.splice(getRndInteger(0, temp.length), 1);
+        let extract =temp.splice(getRndInteger(0, temp.length - 1), 1)[0];
         row.style.fontSize = getRndInteger(1, 5) + "vw";
-        row.innerHTML = extract;
-        row.style.marginLeft = getRndInteger(0, contenuti.offsetWidth - displayTextWidth(extract, "") -100) + "px";
+        row.innerHTML = extract.text;
+        row.style.marginLeft = getRndInteger(0, contenuti.offsetWidth - displayTextWidth(extract.text, "") -100) + "px";
         row.style.textAlign = "left";
+        row.onclick = (() => {
+            displayPoetry(extract.titolo);
+        });
 
         if (Math.random() > 0.9) {
             multiplyRow(row, Math.random() > 0.5);
@@ -78,11 +110,20 @@ function multiplyRow (row, displaced = false, reverse = Math.random() < 0.5) {
     }
 }
 
+function capitalizeLetters (string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(" ");
+}
+
 window.onload = function () {
     const urlDepose = `${localhost}/posts?tags=12`;
     const ftch = fetch(urlDepose);
     let contenuti = document.getElementsByClassName("contenuti")[0];
     righe = [];
+    poesie = {};
 
     ftch.then(res => {
         let data = res.json();
@@ -91,26 +132,30 @@ window.onload = function () {
             let testi = [];
             for (let i = 0; i < result.length; i++) {
                 let content = parser.parseFromString(result[i].content.rendered, 'text/html');
+                let autore = result[i].class_list[result[i].class_list.findIndex(element => element.includes("autore"))].replace("tag-autore", "").replace("_", " ");
+                poesie[result[i].title.rendered] = {"autore": capitalizeLetters(autore), "testo": []};
                 const paragraphs = content.getElementsByTagName("p");
                 for (let j = 0; j < paragraphs.length; j++) {
                     if (paragraphs[j].firstChild && paragraphs[j].firstChild.tagName !== "A") {
-                        testi.push(new Verso(paragraphs[j].innerText, result[i].slug));
+                        poesie[result[i].title.rendered].testo.push(paragraphs[j].innerText);
+                        testi.push(new Verso(paragraphs[j].innerText, result[i].title.rendered));
                     }
                 }
+                poesie[result[i].title.rendered].url = content.getElementsByTagName("a")[0].href;
             }
-            populateRighe(testi).then((result) => {
-                writeDepose(result, contenuti);
+            //populateRighe(testi).then((result) => {
+                writeDepose(testi, contenuti);
                 setInterval(function () {
-                    writeDepose(result, contenuti);
+                    writeDepose(testi, contenuti);
                 }, 60000);
-            });
+            //});
         });
     });
 }
 
 class Verso {
-    constructor(text, slug) {
+    constructor(text, titolo) {
         this.text = text;
-        this.slug = slug;
+        this.titolo = titolo;
     }
 }
