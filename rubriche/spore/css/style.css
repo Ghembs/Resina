@@ -29,7 +29,7 @@ body header {
     height: 30vw;
     max-width: 1200px;
     min-width: 500px;
-    color: white;
+    font-size: max(.78vh, .78vw);
     filter: grayscale(100%);
 }
 
@@ -47,7 +47,6 @@ body header {
     text-align: left;
     overflow-y: scroll;
     position: relative;
-    margin-bottom: 250px;
 }
 
 .DEPOSE {
@@ -83,17 +82,16 @@ body header {
     z-index: 2;
     background-color: black;
     color: darkgray;
-    margin-bottom: 300px;
     font-size: 1.5em;
 }
 
-a {
+.contenuti a {
     text-decoration: none;
     color: black;
     transition: 0.5s;
 }
 
-a:hover {
+.contenuti a:hover {
     text-decoration: underline;
 }
 
@@ -103,22 +101,25 @@ header div {
 
 /* MOBILE */
 @media (pointer: coarse), (max-width: 750px){
-    body header {
-        font-size: 1.3vh;
-    }
     html, body {
         overflow: hidden;
     }
     .center {
         font-size: 2vh;
     }
+    .poesia {
+        margin-bottom: 300px;
+    }
+    .contenuti {
+        margin-bottom: 250px;
+    }
 }
 
 
 /* COMPUTER */
 @media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
-    body header {
-        font-size: 1vw;
+    .poesia {
+        margin-bottom: 50px;
     }
 }
 

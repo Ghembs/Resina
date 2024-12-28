@@ -40,10 +40,10 @@ const parser = new DOMParser();
 let pic, text, url;
 
 const localhost = "https://resina-wp.threefaces.org/wp-json/wp/v2"
-const urlUsers = `${localhost}/users?_fields[]=name&id=`
+const urlUsers = `${localhost}/users/`
 const urlCategories = `${localhost}/categories?_fields[]=id&_fields[]=slug`;
 const urlPosts = `${localhost}/posts?_fields[]=id&_fields[]=categories&_fields[]=title&
-_fields[]=content&_fields[]=excerpt&_fields[]=author&_fields[]=slug&categories=`
+_fields[]=content&_fields[]=excerpt&_fields[]=author&_fields[]=class_list&_fields[]=slug&categories=`
 
 let colors = {
     "cordyceps": "#264c5c",
@@ -72,6 +72,14 @@ function init () {
     });
 }
 
+function capitalizeLetters (string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(" ");
+}
+
 const test = setInterval(()=>{
     text.style.filter = "opacity(0)";
     by.style.top = "-75%";
@@ -94,15 +102,20 @@ function retrieveArticles() {
                             let data = res.json();
                             data.then((result) => {
                                 if (result.length > 0) {
-                                    ftch = fetch(urlUsers + result[0].author);
-                                    ftch.then(res => {
-                                        let data = res.json();
-                                        data.then((answer) => {
-                                            result[0].author = answer[0].name;
-                                            lastArticles.push(result[0]);
-                                            resolve(lastArticles);
+                                    let tagAutore = result[0].class_list[result[0].class_list.findIndex(element => element.includes("tag-autore"))];
+                                    if (tagAutore) {
+                                        result[0].author = capitalizeLetters(tagAutore.replace("tag-autore", "").replace("_", " "));
+                                    } else {
+                                        ftch = fetch(urlUsers + result[0].author);
+                                        ftch.then(res => {
+                                            let data = res.json();
+                                            data.then((answer) => {
+                                                result[0].author = answer.slug;
+                                                lastArticles.push(result[0]);
+                                                resolve(lastArticles);
+                                            })
                                         })
-                                    })
+                                    }
                                 }
                             })
                         })
@@ -116,7 +129,13 @@ function retrieveArticles() {
 function setPreview (article) {
     const rendered = parser.parseFromString(article.content.rendered, "text/html");
     const excerpt = parser.parseFromString(article.excerpt.rendered, "text/html");
-    by.innerText = "BY " + article.author.toUpperCase();
+    const link = document.createElement("a");
+    link.href = "https://resina.threefaces.org/pagine/autore.html?autore=" + article.author.toLowerCase();
+    let autore = "";
+    article.author === "admin" ? autore = "R3sina" : autore = article.author;
+    link.innerText = autore.toUpperCase();
+    by.innerHTML = "BY ";
+    by.appendChild(link);
     by.style.top = "0";
     pubb.style.backgroundColor = colors[categories[article.categories]]
     pic.style.backgroundImage ="url(" + rendered.getElementsByTagName("img")[0].src + ")";

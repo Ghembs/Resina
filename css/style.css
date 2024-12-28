@@ -25,6 +25,7 @@ body header {
     height: 30vw;
     max-width: 1200px;
     min-width: 500px;
+    font-size: 1em;
 }
 
 footer {
@@ -124,8 +125,8 @@ footer a {
     animation-play-state: running;
 }
 
-.gemma:hover {
-    animation-play-state:paused;
+#webcore:hover, #tagli:hover, #spore:hover, #post-office:hover, #cordyceps:hover {
+    animation-play-state: paused;
     transform: scale(110%);
 }
 
@@ -196,9 +197,6 @@ footer a {
 
 /* MOBILE */
 @media (pointer: coarse),(max-width: 750px){
-    body header {
-        font-size: 1.3vh;
-    }
     #central {
         width: 100%;
     }
@@ -214,9 +212,6 @@ footer a {
 
 /* COMPUTER */
 @media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
-    body header {
-        font-size: 1vw;
-    }
     #central img {
         max-width: 60%;
     }

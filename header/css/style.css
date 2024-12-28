@@ -34,7 +34,7 @@ header {
 
 #nuova_pubb {
     width: 100%;
-    height: 65%;
+    height: 50%;
     background-color: #ffffff;
     margin-top: 0;
     padding: 0;
@@ -56,6 +56,15 @@ header {
     width: 1em;
     font-weight: bold;
     transition: all 1s ease;
+}
+
+#by a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#by a:hover {
+    text-decoration: underline;
 }
 
 #preview_pic {
@@ -90,7 +99,7 @@ header {
 
 #banner_appalto {
     width: 100%;
-    height: 35%;
+    height: 30%;
     background-image: url("https://resina.threefaces.org/header/assets/banner_verde.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -102,4 +111,35 @@ header {
 
 #banner_appalto img {
     margin-top: -1%;
+}
+
+#nav {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    text-align: center;
+    position: relative;
+    background-color: rgba(0,0,0,0.5);
+    font: 1.5em 'Arial Black', Arial sans-serif
+}
+
+#nav a {
+    color: white;
+}
+
+#nav p {
+    margin: auto;
+    text-decoration: none;
+}
+
+#nav p a {
+    text-decoration: none;
+}
+
+#nav p:hover {
+    padding-left: 3px;
+    padding-right: 3px;
+    border-left: 4px solid white;
+    border-right: 4px solid white;
 }
