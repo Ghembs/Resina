@@ -35,7 +35,7 @@ body header {
 
 .center {
     width: 80%;
-    height: 80%;
+    height: 100%;
     overflow-y: scroll;
     text-align: center;
     margin: 0 auto;
@@ -43,23 +43,31 @@ body header {
 
 .contenuti {
     width: 100%;
-    height: 100%;
     text-align: left;
     overflow-y: scroll;
     position: relative;
 }
 
+.links {
+    position:relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
 .DEPOSE {
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
+    margin: 0 0 0 auto;
     font-size: 2vh;
 }
 
 .back {
-     position: absolute;
-     top: 0;
-     left: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0 auto 0 0 ;
     font-size: 2vh;
  }
 
@@ -85,13 +93,13 @@ body header {
     font-size: 1.5em;
 }
 
-.contenuti a {
+.links a,  .contenuti a{
     text-decoration: none;
     color: black;
     transition: 0.5s;
 }
 
-.contenuti a:hover {
+.links a:hover, .contenuti a:hover {
     text-decoration: underline;
 }
 

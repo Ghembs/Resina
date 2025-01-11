@@ -40,7 +40,7 @@ function populateOpere(result){
                 opere.appendChild(article);
             }
         }
-    })
+    });
 }
 
 function createPage(result, author, url) {

@@ -323,8 +323,8 @@ if(queryString.get("article")) {
     ftch.then(res => {
         let data = res.json();
         data.then((result) => {
-            console.log(result);
             let contenuti = document.getElementsByClassName('contenuti')[0];
+            let links = document.getElementsByClassName('links')[0];
             let center = document.createElement("div");
             let back = document.createElement("a");
             let body = document.getElementsByTagName("body")[0];
@@ -334,7 +334,7 @@ if(queryString.get("article")) {
             back.href = "page.html";
             back.innerText = "Spore >";
             back.classList.add("back");
-            contenuti.appendChild(back);
+            links.insertBefore(back, links.firstChild);
             center.appendChild(title);
             center.classList.add("center");
 
@@ -451,7 +451,10 @@ function drawLine (vec1, vec2) {
 
 function clickMouse (e) {
     articles.forEach(article => {
-        if (article.center.pos.x - article.width / 2 < e.x && e.x < article.center.pos.x + article.width / 2 && article.center.pos.y > e.y && e.y > article.center.pos.y - article.height) {
+        if (article.center.pos.x - article.width / 2 < e.x &&
+            e.x < article.center.pos.x + article.width / 2 &&
+            article.center.pos.y + article.center.pos.y/5 > e.y &&
+            e.y > article.center.pos.y - article.height) {
             window.location = article.url;
         }
     })
@@ -461,7 +464,8 @@ function touch (evt) {
     let touches = evt.touches;
     for (let i = 0; i < touches.length; i++) {
         const touch = touches[i];
-        let e = {x: touch.x, y: touch.y};
+        console.log(touch);
+        let e = {x: touch.clientX, y: touch.clientY};
         clickMouse(e);
     }
 }
@@ -577,8 +581,8 @@ class DotDrawer {
 window.addEventListener('DOMContentLoaded', init);
 document.addEventListener("click", clickMouse);
 document.addEventListener("touchstart", touch);
-document.addEventListener("touchend", touch);
-document.addEventListener("touchcancel", touch);
+//document.addEventListener("touchend", touch);
+//document.addEventListener("touchcancel", touch);
 document.addEventListener("touchmove", touch);
 document.addEventListener("mousemove", mouseHover);
 window.addEventListener("resize", resizeReset);

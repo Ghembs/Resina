@@ -1,6 +1,5 @@
 const urlRedazione = "https://resina-wp.threefaces.org/wp-json/wp/v2/users";
 const urlTags = "https://resina-wp.threefaces.org/wp-json/wp/v2/tags";
-let w, h, canvas, context;
 window.onload = function() {
     const redazione = document.getElementById("redazione");
     const autori = document.getElementById("autori");
