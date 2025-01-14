@@ -49,7 +49,8 @@ const begin = () => {
             let cirRadius = 0;
             const fitRadius = dotRadius;
 
-            canvas.addEventListener('mousedown', onMouseDown)
+            canvas.addEventListener('mousedown', onMouseDown);
+            canvas.addEventListener('touchstart', onTouchStart);
 
             for (let i = 0; i < numCircles; i++) {
                 const numFit = i ? Math.floor(2 * Math.PI * cirRadius / (fitRadius * 2 + gapDots)) : 1;
@@ -194,6 +195,16 @@ function onMouseDown(e) {
     onMouseMove(e);
 }
 
+function onTouchStart(e) {
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", onTouchEnd);
+
+    cursor.canvas = e.target.id;
+    particles[cursor.canvas].drawn = false;
+
+    onTouchMove(e);
+}
+
 function onMouseMove(e) {
     const x = e.offsetX //(e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
     const y = e.offsetY //(e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
@@ -202,9 +213,27 @@ function onMouseMove(e) {
     cursor.pos.y = y;
 }
 
+function onTouchMove(e) {
+    const x = e.touches[0].clientX //(e.offsetX / elCanvas.offsetWidth) * elCanvas.width;
+    const y = e.touches[0].clientY //(e.offsetY / elCanvas.offsetHeight) * elCanvas.height;
+    const canvas = document.getElementById(cursor.canvas);
+
+    cursor.pos.x = x - canvas.getBoundingClientRect().x;
+    cursor.pos.y = y - canvas.getBoundingClientRect().y;
+}
+
 function onMouseUp() {
     window.removeEventListener("mousemove", onMouseMove);
     window.removeEventListener("mouseup", onMouseUp);
+
+    cursor.pos.x = 9999;
+    cursor.pos.y = 9999;
+    cursor.canvas = null;
+}
+
+function onTouchEnd(e) {
+    window.removeEventListener("touchmove", onTouchMove);
+    window.removeEventListener("touchend", onTouchEnd);
 
     cursor.pos.x = 9999;
     cursor.pos.y = 9999;

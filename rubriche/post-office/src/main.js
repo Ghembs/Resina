@@ -32,6 +32,13 @@ function init (messaggio= false, slug="") {
                 controllo.classList.add("title-bar-controls", "chiudi_finestra");
                 testo.classList.add("testo");
                 let bottone = document.createElement("button");
+
+                let autore = articolo.class_list[articolo.class_list.findIndex(element => element.includes("autore"))];
+                if (autore !== undefined) {
+                    autore = autore.replace("tag-autore", "").replace("_", " ")
+                    mittente.innerText = capitalizeLetters(autore)
+                }
+
                 bottone.ariaLabel = "Close";
                 bottone.onclick = () => {
                     init(false);
@@ -90,6 +97,11 @@ function init (messaggio= false, slug="") {
                 content.innerHTML = "";
                 content.appendChild(barra);
                 for (let i = 0; i < result.length; i++) {
+                    let autore = result[i].class_list[result[i].class_list.findIndex(element => element.includes("autore"))];
+                    if (autore !== undefined) {
+                        autore = autore.replace("tag-autore", "").replace("_", " ")
+                        mittente.innerText = capitalizeLetters(autore)
+                    }
                     let rendered = parser.parseFromString(result[0].content.rendered, "text/html");
                     for (let j = 0; j < rendered.getElementsByTagName("p").length; j++) {
                         let temp = rendered.getElementsByTagName("p")[j];

@@ -36,6 +36,14 @@ function createFilter(id, smooth=false) {
     return newFilter;
 }
 
+function capitalizeLetters (string) {
+    let words = string.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(" ");
+}
+
 window.onload = function(){
     let content = document.getElementById("content");
     const urlTagli = `${localhost}/posts?categories=9`;
@@ -60,6 +68,11 @@ window.onload = function(){
                 let testo = document.createElement("div");
                 const titolo = item.title.rendered;
                 img = document.createElement("img");
+                autore = item.class_list[item.class_list.findIndex(element => element.includes("autore"))];
+                if (autore !== undefined) {
+                    autore = autore.replace("tag-autore", "").replace("_", " ")
+                    autore = capitalizeLetters(autore)
+                }
 
                 while (rendered.body.hasChildNodes()) {
                     let child = rendered.body.removeChild(rendered.body.firstChild);
@@ -128,6 +141,11 @@ window.onload = function(){
                     const titolo = item.title.rendered;
                     const estratto = excerpt.body.getElementsByTagName("p")[0].innerHTML;
                     img = document.createElement("div");
+                    autore = result[i].class_list[result[i].class_list.findIndex(element => element.includes("autore"))];
+                    if (autore !== undefined) {
+                        autore = autore.replace("tag-autore", "").replace("_", " ")
+                        autore = capitalizeLetters(autore)
+                    }
 
                     for (let j = 0; j < rendered.body.children.length; j++) {
                         if (rendered.body.children[j].innerHTML.indexOf("Autore: ") >= 0) {
