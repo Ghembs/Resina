@@ -1,4 +1,3 @@
-let riquadro, img, scotchPic;
 const queryString = new URLSearchParams(window.location.search);
 const urlArticle = `${localhost}/posts?slug=` + queryString.get("article");
 
@@ -47,13 +46,6 @@ function capitalizeLetters (string) {
 window.onload = function(){
     let content = document.getElementById("content");
     const urlTagli = `${localhost}/posts?categories=9`;
-    const info = document.createElement("div");
-    const autoTitolo = document.createElement("div");
-    const distorco = document.createElement("div");
-    let test = document.createElement("div");
-    let testino = document.createElement("div");
-    riquadro = document.createElement("a");
-    scotchPic = document.createElement("div");
     let src = "";
     let autore = "";
     let parser = new DOMParser();
@@ -64,6 +56,14 @@ window.onload = function(){
             let data = res.json();
             data.then((result) => {
                 let item = result[0];
+                let img;
+                const info = document.createElement("div");
+                const autoTitolo = document.createElement("div");
+                const distorco = document.createElement("div");
+                let test = document.createElement("div");
+                let testino = document.createElement("div");
+                let scotchPic = document.createElement("div");
+                let riquadro = document.createElement("a");
                 let rendered = parser.parseFromString(item.content.rendered, "text/html");
                 let testo = document.createElement("div");
                 const titolo = item.title.rendered;
@@ -135,6 +135,14 @@ window.onload = function(){
             let data = res.json();
             data.then((result) => {
                 for (let i = 0; i < result.length; i++) {
+                    let img;
+                    const info = document.createElement("div");
+                    const autoTitolo = document.createElement("div");
+                    const distorco = document.createElement("div");
+                    let test = document.createElement("div");
+                    let testino = document.createElement("div");
+                    let scotchPic = document.createElement("div");
+                    let riquadro = document.createElement("a");
                     let item = result[i];
                     let rendered = parser.parseFromString(item.content.rendered, "text/html");
                     let excerpt = parser.parseFromString(item.excerpt.rendered, "text/html");

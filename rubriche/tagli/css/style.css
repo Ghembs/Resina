@@ -208,8 +208,8 @@ a {
 
 /* MOBILE */
 @media (pointer: coarse),(max-width: 750px){
-    body {
-        font-size: 2vh;
+    #content {
+        font-size: 1.5em;
     }
     html, body {
         overflow: hidden;
@@ -219,7 +219,7 @@ a {
         height: 100%;
     }
     .riquadro {
-        height: 30%;
+        height: 500px;
     }
     .riquadro, .riquadro_vert {
         width:100%;
@@ -243,7 +243,7 @@ a {
         height: 100%;
     }
     .riquadro {
-        height: 100%;
+        height: 60%;
     }
     .riquadro, .riquadro_vert {
         width:90%;

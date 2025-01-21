@@ -105,6 +105,9 @@ function retrieveArticles() {
                                     let tagAutore = result[0].class_list[result[0].class_list.findIndex(element => element.includes("tag-autore"))];
                                     if (tagAutore) {
                                         result[0].author = capitalizeLetters(tagAutore.replace("tag-autore", "").replace("_", " "));
+
+                                        lastArticles.push(result[0]);
+                                        resolve(lastArticles);
                                     } else {
                                         ftch = fetch(urlUsers + result[0].author);
                                         ftch.then(res => {
@@ -130,7 +133,7 @@ function setPreview (article) {
     const rendered = parser.parseFromString(article.content.rendered, "text/html");
     const excerpt = parser.parseFromString(article.excerpt.rendered, "text/html");
     const link = document.createElement("a");
-    link.href = "https://resina.threefaces.org/pagine/autore.html?autore=" + article.author.toLowerCase();
+    link.href = "https://resina.threefaces.org/pagine/autore.html?autore=" + article.author.toLowerCase().replace(" ", "_");
     let autore = "";
     article.author === "admin" ? autore = "R3sina" : autore = article.author;
     link.innerText = autore.toUpperCase();
