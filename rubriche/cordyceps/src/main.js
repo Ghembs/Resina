@@ -11,6 +11,9 @@ if(queryString.get("article")) {
             const parser = new DOMParser();
             let content = parser.parseFromString(result[0].content.rendered, "text/html");
             let contenuti = document.getElementById("content");
+            const title = document.createElement("h1");
+            title.innerText = result[0].title.rendered;
+            contenuti.appendChild(title);
             for (let i = 0; i < content.body.childNodes.length; i++) {
                 contenuti.appendChild(content.body.childNodes[i]);
                 if (contenuti.lastElementChild.getElementsByTagName("img").length){
@@ -22,7 +25,7 @@ if(queryString.get("article")) {
             }
             //contenuti.innerHTML = content.innerHTML;
             contenuti.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
-            contenuti.style.color = "#649CF7"
+            contenuti.style.color = "#B1CEFB"
         });
     });
 } else {
