@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLITCH1</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        @font-face {
+            font-family: 'Breite Grotesk Regular';
+            src: url('../../assets/fonts/breite_grotesk_regular.otf') format('opentype');
+        }
+
+        /* Stile per il menu hamburger */
+        #hamburger-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Stile per l'icona hamburger */
+        #hamburger-icon {
+            font-size: 50px;
+            color: lightgray;
+        }
+
+        /* Stile per il menu a tendina */
+        #menu-links {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 100px;
+            font-family: "Breite Grotesk Regular", sans-serif;
+            font-size: 24px;
+        }
+
+        #menu-links a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        #menu-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/earcut@2.2.4/dist/earcut.min.js"></script>
+</head>
+<body>
+<canvas id="renderCanvas"></canvas>
+<div id="hamburger-menu">
+    <div id="hamburger-icon">&#9776;</div> <!-- Icona hamburger -->
+    <div id="menu-links">
+        <a href="https://resina.threefaces.org">HOME</a>
+        <a href="https://resina.threefaces.org/rubriche/spore/page.html">SPORE</a>
+    </div>
+</div>
+<script>
+    const hamburgerMenu = document.getElementById("hamburger-menu");
+    const menuLinks = document.getElementById("menu-links");
+
+    hamburgerMenu.addEventListener("click", () => {
+        if (menuLinks.style.display === "block") {
+            menuLinks.style.display = "none";
+        } else {
+            menuLinks.style.display = "block";
+        }
+    });
+    // Creazione della scena
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true);
+    const scene = new BABYLON.Scene(engine);
+
+    const local = false;
+    const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    /*
+        Joystick per il controllo della telecamera da mobile
+     */
+    class FreeCameraTouchVirtualJoystickInput extends BABYLON.BaseCameraPointersInput {
+        SWIPE_SENSIBILITY = 0.5;
+        JOYSTICK_COLOR = "LightGray";
+        JOYSTICK_CIRCLE_SIZE_VERTICAL_SCREEN_SHARE = 0.08;
+        JOYSTICK_PUCK_SIZE_VERTICAL_SCREEN_SHARE = 0.04;
+        JOYSTICK_OUTER_CIRCLE_THICKNESS_RATIO = 0.01;
+        JOYSTICK_INNER_CIRCLE_THICKNESS_RATIO = 0.04;
+        JOYSTICK_PUCK_THICKNESS_RATIO = 0.01;
+
+        camera;
+        joystickDelta = BABYLON.Vector2.Zero();
+        screenSize;
+        ui;
+        joystickPointerId;
+        joystickButtonDownPos;
+        joystickButtonDownPosOffset;
+        joystickContainer;
+        joystickOuterCirce;
+        joystickInnerCircle;
+        joystickPuck;
+        joystickCircleRadius;
+        joystickPuckRadius;
+
+        attachControl(noPreventDefault) {
+            super.attachControl(noPreventDefault);
+            this.screenSize = FreeCameraTouchVirtualJoystickInput.getScreenSize();
+            this.ui = advancedTexture;
+            this.prepareImages();
+            BABYLON.EngineStore.LastCreatedEngine.onResizeObservable.add(this.resize);
+        }
+
+        prepareImages() {
+            this.joystickCircleRadius = this.screenSize.y * this.JOYSTICK_CIRCLE_SIZE_VERTICAL_SCREEN_SHARE;
+            this.joystickPuckRadius = this.screenSize.y * this.JOYSTICK_PUCK_SIZE_VERTICAL_SCREEN_SHARE;
+
+            this.joystickContainer = new BABYLON.GUI.Container("virtual_joystick");
+            this.containerSize = this.joystickCircleRadius * 2 + this.joystickPuckRadius * 2;
+            this.joystickContainer.widthInPixels = this.containerSize;
+            this.joystickContainer.heightInPixels = this.containerSize;
+            this.joystickContainer.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            this.joystickContainer.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+            this.joystickContainer.top = "-50px";
+
+            this.joystickOuterCirce = this.prepareJoystickCircle(
+                this.joystickCircleRadius,
+                this.containerSize * this.JOYSTICK_OUTER_CIRCLE_THICKNESS_RATIO,
+            );
+            this.joystickInnerCircle = this.prepareJoystickCircle(
+                this.joystickPuckRadius,
+                this.containerSize * this.JOYSTICK_INNER_CIRCLE_THICKNESS_RATIO,
+            );
+            this.joystickPuck = this.prepareJoystickCircle(
+                this.joystickPuckRadius,
+                this.containerSize * this.JOYSTICK_PUCK_THICKNESS_RATIO,
+            );
+
+            this.joystickContainer.addControl(this.joystickOuterCirce);
+            this.joystickContainer.addControl(this.joystickInnerCircle);
+            this.joystickContainer.addControl(this.joystickPuck);
+            this.joystickContainer.isVisible = true;
+            this.ui.addControl(this.joystickContainer);
+        }
+
+        prepareJoystickCircle(radius, thickness) {
+            let circle = new BABYLON.GUI.Ellipse();
+            circle.widthInPixels = radius * 2;
+            circle.heightInPixels = radius * 2;
+            circle.thickness = thickness;
+            circle.color = this.JOYSTICK_COLOR;
+            circle.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+            circle.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+            return circle;
+        }
+
+        detachControl() {
+            this.disposeImages();
+            this.ui.dispose();
+            BABYLON.EngineStore.LastCreatedEngine.onResizeObservable.removeCallback(this.resize);
+            super.detachControl();
+        }
+
+        disposeImages() {
+            this.joystickContainer.dispose()
+            this.joystickInnerCircle.dispose();
+            this.joystickOuterCirce.dispose();
+            this.joystickPuck.dispose();
+        }
+
+        resize = () => {
+            this.screenSize = FreeCameraTouchVirtualJoystickInput.getScreenSize();
+            this.disposeImages();
+            this.prepareImages();
+        };
+
+        static getScreenSize() {
+            let engine = BABYLON.EngineStore.LastCreatedEngine;
+            return new BABYLON.Vector2(engine.getRenderWidth(), engine.getRenderHeight());
+        }
+
+        checkInputs() {
+            let joystickMoveVector = new BABYLON.Vector3(this.joystickDelta.x, 0, -this.joystickDelta.y);
+            joystickMoveVector.scaleInPlace(BABYLON.EngineStore.LastCreatedEngine.getDeltaTime() / 1000);
+            this.camera.cameraDirection.addInPlace(
+                BABYLON.Vector3.TransformCoordinates(joystickMoveVector, BABYLON.Matrix.RotationY(this.camera.rotation.y)),
+            );
+        }
+
+        onTouch(point, offsetX, offsetY) {
+            if (point.pointerId === this.joystickPointerId) {
+                // point refer to global inner window canvas, we need to convert it to local render canvas
+                this.onTouchJoystick(
+                    new BABYLON.Vector2(point.x, point.y)
+                );
+            } else {
+                this.onTouchSwipe(new BABYLON.Vector2(offsetX, offsetY));
+            }
+        }
+
+        onTouchJoystick(touchPoint) {
+            const joystickVector = touchPoint.subtract(this.joystickButtonDownPos);
+            if (joystickVector.length() > this.joystickCircleRadius)
+                joystickVector.scaleInPlace(this.joystickCircleRadius / joystickVector.length());
+            this.joystickPuck.left = joystickVector.x;
+            this.joystickPuck.top = joystickVector.y;
+
+            this.joystickDelta = joystickVector.scaleInPlace(this.camera.speed / this.joystickCircleRadius);
+        }
+
+        onTouchSwipe(touchOffset) {
+            let directionAdjust = 1;
+            if (this.camera.getScene().useRightHandedSystem) directionAdjust *= -1;
+            if (this.camera.parent && this.camera.parent._getWorldMatrixDeterminant() < 0)
+                directionAdjust *= -1;
+
+            this.camera.cameraRotation.y +=
+                ((directionAdjust * touchOffset.x) / this.screenSize.x) * this.SWIPE_SENSIBILITY;
+            this.camera.cameraRotation.x += (touchOffset.y / this.screenSize.x) * this.SWIPE_SENSIBILITY;
+        }
+
+        onButtonDown(evt) {
+            if (evt.offsetX < this.containerSize && evt.offsetY > this.screenSize.y - this.containerSize)
+                this.onButtonDownJoystick(evt);
+        }
+
+        onButtonDownJoystick(evt) {
+            let point = new BABYLON.Vector2(evt.offsetX, evt.offsetY);
+            this.joystickPointerId = evt.pointerId;
+            this.joystickButtonDownPos = point;
+            this.joystickButtonDownPosOffset = new BABYLON.Vector2(evt.clientX - point.x, evt.clientY - point.y);
+        }
+
+        onButtonUp(evt) {
+            if (evt.pointerId === this.joystickPointerId) this.onButtonUpJoystick();
+        }
+
+        onButtonUpJoystick() {
+            this.joystickPointerId = null;
+            this.joystickDelta.scaleInPlace(0);
+            this.joystickPuck.left = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER - this.containerSize * this.JOYSTICK_PUCK_THICKNESS_RATIO;
+            this.joystickPuck.top = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER - this.containerSize * this.JOYSTICK_PUCK_THICKNESS_RATIO;
+        }
+    }
+
+    res_url = local ? "http://localhost:3000/" : "https://resina.threefaces.org/test_babylon/";
+
+    // Creazione della camera in prima persona
+    const camera = createCamera(false);
+    camera.attachControl(canvas, true);
+
+    // ====================================== LUCI AMBIENTALI =====================================================
+    createLamp("pointlight", new BABYLON.Vector3(0, 10, 11), scene);
+    createLamp("pointLight1", new BABYLON.Vector3(0, 10, -9), scene);
+
+    // ================================== STRUTTURA ===================================================
+    // Our built-in 'ground' shape.
+    let ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 25, height: 17.5}, scene);
+    ground.position.z = 11.25;
+    let invisibleGround = BABYLON.MeshBuilder.CreateGround("invi ground", {width: 32, height: 27}, scene);
+    invisibleGround.position.z = -11;
+
+    // STANZA INTRODUTTIVA
+    let wall1 = createWall(25, new BABYLON.Vector3(0, 5, 19.5), scene);
+    let wall2 = createWall(18, new BABYLON.Vector3(-12, 5, 11), scene);
+    wall2.rotation.y = Math.PI / 2;
+    let wall3 = createWall(18, new BABYLON.Vector3(12, 5, 11), scene);
+    wall3.rotation.y = Math.PI / 2;
+    let wall4 = createWall(11.5, new BABYLON.Vector3(-6.75, 5, 2), scene);
+    let wall5 = createWall(10, new BABYLON.Vector3(7.5, 5, 2), scene);
+
+    //let walldepth = createWall(0.1, new BABYLON.Vector3(-1.05, 5, 2), scene);
+    //let walldepth1 = createWall(0.1, new BABYLON.Vector3(2.55, 5, 2), scene);
+
+    // STANZA ESPOSITIVA
+    // MURI INVISIBILI
+    let wall6 = createWall(28, new BABYLON.Vector3(16, 5, -11), scene);
+    wall6.rotation.y = Math.PI / 2;
+    let wall7 = createWall(28, new BABYLON.Vector3(-16, 5, -11), scene);
+    wall7.rotation.y = Math.PI / 2;
+    let wall8 = createWall(32, new BABYLON.Vector3(0, 5, -25), scene);
+    let wall9 = createWall(2, new BABYLON.Vector3(-14, 5, 3), scene);
+    let wall10 = createWall(2, new BABYLON.Vector3(14, 5, 3), scene);
+
+    // =================================== OGGETTI IN ESPOSIZIONE ===============================================
+    let tela = BABYLON.MeshBuilder.CreateBox("tela", {
+        width: 3.75,
+        height: 5,
+        depth: 0.1
+    }, scene);
+
+    tela.position = new BABYLON.Vector3(11.2, 6, -9);
+    tela.rotation.y = Math.PI / 2;
+    tela.renderingGroupId = 2;
+
+    let tela1 = BABYLON.MeshBuilder.CreateBox("tela1", {
+        width: 3.5,
+        height: 5,
+        depth: 0.1
+    }, scene);
+
+    tela1.position = new BABYLON.Vector3(-11.2, 6, -5.5);
+    tela1.rotation.y = -Math.PI / 2;
+    tela1.renderingGroupId = 2;
+
+    let tela2 = BABYLON.MeshBuilder.CreateBox("tela2", {
+        width: 5,
+        height: 3.7,
+        depth: 0.1
+    }, scene);
+
+    tela2.position = new BABYLON.Vector3(0, 5, -20);
+    tela2.rotation.y = -Math.PI;
+    tela2.renderingGroupId = 2;
+
+    // Crea un piano invisibile per mascherare gli oggetti dietro la faccia trasparente
+    const plane = BABYLON.MeshBuilder.CreatePlane("plane", { size: 11.5, height: 10}, scene);
+    plane.position = new BABYLON.Vector3(-6.75, 5, 2.5); // Posiziona il piano dietro la faccia trasparente del box
+
+    const plane1 = BABYLON.MeshBuilder.CreatePlane("plane1", { size: 10, height: 10}, scene);
+    plane1.position = new BABYLON.Vector3(7.5, 5, 2.5); // Posiziona il piano dietro la faccia trasparente del box
+
+    const plane2 = BABYLON.MeshBuilder.CreatePlane("plane2", { size: 17, height: 10}, scene);
+    plane2.position = new BABYLON.Vector3(-11.5, 5, 11); // Posiziona il piano dietro la faccia trasparente del box
+    plane2.rotation.y = Math.PI / 2;
+
+    const plane3 = BABYLON.MeshBuilder.CreatePlane("plane3", { size: 17, height: 10}, scene);
+    plane3.position = new BABYLON.Vector3(11.5, 5, 11); // Posiziona il piano dietro la faccia trasparente del box
+    plane3.rotation.y = -Math.PI / 2;
+
+    // ============================================== MATERIALI ======================================================
+    let material = new BABYLON.PBRMaterial("material", scene);
+    material.albedoTexture = new BABYLON.Texture(res_url + "Insidia.jpg", scene); //new BABYLON.Color3(1, 0, 0);
+    material.metallic = 0.4;  // Valore tra 0 (dielettrico) e 1 (metallo)
+    material.roughness = 0.6; // Valore tra 0 (lucido) e 1 (opaco)
+    tela.material = material;
+
+    let material1 = new BABYLON.PBRMaterial("material", scene);
+    material1.albedoTexture = new BABYLON.Texture(res_url + "Orchestra.jpg", scene); // new BABYLON.Color3(1, 1, 0);
+    material1.metallic = 0.4;  // Valore tra 0 (dielettrico) e 1 (metallo)
+    material1.roughness = 0.6; // Valore tra 0 (lucido) e 1 (opaco)
+    tela1.material = material1;
+
+    let material2 = new BABYLON.PBRMaterial("material", scene);
+    material2.albedoTexture = new BABYLON.Texture(res_url + "Tradimento.jpg", scene); //new BABYLON.Color3(0, 1, 1);
+    material2.metallic = 0.4;  // Valore tra 0 (dielettrico) e 1 (metallo)
+    material2.roughness = 0.6; // Valore tra 0 (lucido) e 1 (opaco)
+    tela2.material = material2;
+
+    let wallMaterial = new BABYLON.PBRMaterial("muri", scene);
+    wallMaterial.albedoColor = new BABYLON.Color3(1, 1, 1); // bianco
+    wallMaterial.metallic = 0.2;  // Valore tra 0 (dielettrico) e 1 (metallo)
+    wallMaterial.roughness = 0.8; // Valore tra 0 (lucido) e 1 (opaco)
+
+    let invisibleMaterial = new BABYLON.StandardMaterial("muri invisibili", scene);
+    invisibleMaterial.diffuseColor = new BABYLON.Color3(1, 1, 1);
+    invisibleMaterial.alpha = 0;
+
+    let wallDoubleFace = new BABYLON.MultiMaterial("muri bifronte", scene);
+    wallDoubleFace.subMaterials.push(wallMaterial);
+    wallDoubleFace.subMaterials.push(invisibleMaterial);
+
+    const occluderMaterial = createMaterial('mat3', '#0000FF', 1, true, true)
+
+    //scene.autoClear = false; // Disabilita il clear automatico del buffer
+    scene.clearColor = new BABYLON.Color4(0, 0, 0, 0); // Colore di clear trasparente, BABYLON.Color3(1, 1, 1); bianco
+
+    plane.material = occluderMaterial;
+    plane1.material = occluderMaterial;
+    plane2.material = occluderMaterial
+    plane3.material = occluderMaterial
+
+    ground.renderingGroupId = 0;
+    plane.renderingGroupId = 2;
+    plane1.renderingGroupId = 2;
+    plane2.renderingGroupId = 2;
+    plane3.renderingGroupId = 2;
+
+    assignDoubleMaterial(0, wall1, wallDoubleFace);
+    assignDoubleMaterial(1, wall2, wallDoubleFace);
+    assignDoubleMaterial(0, wall3, wallDoubleFace);
+    assignDoubleMaterial(1, wall4, wallDoubleFace);
+    assignDoubleMaterial(1, wall5, wallDoubleFace);
+
+    //walldepth.renderingGroupId = 2;
+    //walldepth1.renderingGroupId = 2;
+    //walldepth.material = wallMaterial;
+    //walldepth1.material = wallMaterial;
+
+    ground.material = wallMaterial;
+    invisibleGround.material = invisibleMaterial;
+
+    let invisibleWalls = BABYLON.Mesh.MergeMeshes([wall6, wall7, wall8, wall9, wall10]);
+
+    invisibleWalls.material = invisibleMaterial;
+
+    // =============================================== TESTI =====================================================
+    // Pannello di testo (rettangolo con bordo arrotondato)
+    creaInfo("tela", "Titolo: Insidia\nAnno: 2024\nTecnica Mista");
+    creaInfo("tela1", "Titolo: Orchestra\nAnno: 2025\nCollage Digitale");
+    creaInfo("tela2", "Titolo: Tradimento\nAnno: 2025\nCollage Digitale");
+
+    let istruzioni = BABYLON.SceneLoader.ImportMeshAsync("", res_url, "istruzioni.glb", scene).then((result) => {
+        const instr = BABYLON.Mesh.MergeMeshes([result.meshes[1], result.meshes[2]]);
+        instr.position.x = 8.6;
+        instr.position.y = -1;
+        instr.position.z = -15;
+        instr.renderingGroupId = 2;
+    });
+
+    importaTesti(res_url, "bio virga.glb", scene, new BABYLON.Vector3(10, 8, 19));
+    importaTesti(res_url, "bio viligiardi.glb", scene, new BABYLON.Vector3(-1.5, 8, 19));
+    importaTesti(res_url, "poesia0.glb", scene, new BABYLON.Vector3(-5, 8.5, 1.5));
+    importaTesti(res_url, "poesia1.glb", scene, new BABYLON.Vector3(-11.5, 8.5, -2.5));
+    importaTesti(res_url, "poesia2.glb", scene, new BABYLON.Vector3(-7.3, 8.5, -20.2));
+    importaTesti(res_url, "poesia3.glb", scene, new BABYLON.Vector3(3, 4, -20.2));
+    importaTesti(res_url, "poesia4.glb", scene, new BABYLON.Vector3(11.5, 8.5, -11));
+    importaTesti(res_url, "poesia5.glb", scene, new BABYLON.Vector3(7, 7, 1.5));
+
+    // ================================================== RENDERING ================================================
+    // Attivazione delle collisioni
+    scene.collisionsEnabled = true;
+    scene.lightsEnabled = true;
+    camera.checkCollisions = true;
+    camera.applyGravity = true;
+    ground.checkCollisions = true;
+    invisibleGround.checkCollisions = true;
+    invisibleWalls.checkCollisions = true;
+    camera.ellipsoid = new BABYLON.Vector3(1.3, 2, 1.5);
+
+    camera.inputs.add(new FreeCameraTouchVirtualJoystickInput())
+    //camera.attachControl(canvas, true);
+    camera.speed = 1;
+    BABYLON.Engine.CollisionsEpsilon = 0.0001; // acts as a deadzone for joystick
+    camera.inertia = 0.8
+
+    // Loop di rendering
+    engine.runRenderLoop(() => {
+        scene.render();
+    });
+
+    // Adattamento alla finestra
+    window.addEventListener("resize", () => {
+        engine.resize();
+    });
+
+    // ================================================ UTILITIES ================================================
+    function createLamp (name, position, scene){
+        const lampadina = new BABYLON.PointLight("pointLight", position, scene);
+
+        const cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 1, height: 1 }, scene);
+        cube.position = position;
+        cube.renderingGroupId = 2;
+        lampadina.falloffType = BABYLON.Light.FALLOFF_PHYSICAL;
+        lampadina.intensity = 250;
+        lampadina.range = 18;
+    }
+
+    function createWall (width, pos, scene){
+        // Crea un muro utilizzando un Box
+        let wall = BABYLON.MeshBuilder.CreateBox("wall", {
+            width: width,  // Larghezza del muro
+            height: 10,  // Altezza del muro
+            depth: 1  // Spessore del muro
+        }, scene);
+
+        // Posiziona il muro
+        wall.position = pos; // Posizione del muro
+        return wall;
+    }
+
+    function assignDoubleMaterial (inv_face, obj, material, magic_wall=false){
+        obj.renderingGroupId = 2;
+        const verticesPerFace = 6; // Ogni faccia ha 6 vertici (triangoli)
+        obj.subMeshes = [];
+
+        for (let i = 0; i < verticesPerFace; i++) {
+            const index = i === inv_face? 1 : 0;
+            new BABYLON.SubMesh(index, 0, obj.getTotalVertices(), i * verticesPerFace, verticesPerFace, obj);
+        }
+
+        obj.material = material;
+        obj.checkCollisions = true;
+
+        if (magic_wall){
+
+        }
+    }
+
+    function createCamera (demo) {
+        let camera = "";
+        if (demo) {
+            camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 3, new BABYLON.Vector3(2, 10, 20), scene);
+        } else {
+            camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-2, 4, 10), scene);
+            camera.attachControl(canvas, true);
+            camera.speed = 0.5;
+            camera.fov = Math.PI * 0.35;
+            camera.keysUp.push(87); // W
+            camera.keysDown.push(83); // S
+            camera.keysLeft.push(65); // A
+            camera.keysRight.push(68); // D
+            camera.rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
+        }
+
+        return camera;
+    }
+
+    function creaInfo (oggetto, testo){
+        const rect = new BABYLON.GUI.Rectangle();
+        rect.width = "250px";
+        rect.height = "80px";
+        rect.thickness = 2; // bordo
+        rect.color = "black";
+        rect.background = "transparent";
+        rect.isVisible = false; // Inizialmente nascosto
+        advancedTexture.addControl(rect);
+
+        // Testo iniziale
+        const textBlock = new BABYLON.GUI.TextBlock();
+        textBlock.text = "INFO";
+        textBlock.color = "black";
+        textBlock.fontSize = 25;
+        textBlock.fontFamily = "Breite Grotesk Regular";
+        rect.addControl(textBlock);
+
+        // Associare il testo all'oggetto
+        const targetObject = scene.getMeshByName(oggetto);
+        rect.linkWithMesh(targetObject);
+        rect.linkOffsetY = 470; // Posiziona il testo sotto l'oggetto
+
+        // Rilevare la distanza
+        const omino = scene.activeCamera;
+        scene.onBeforeRenderObservable.add(() => {
+            const distance = BABYLON.Vector3.Distance(omino.position, targetObject.position);
+            rect.isVisible = distance < 9; // Mostra il primo messaggio solo se il giocatore è vicino
+        });
+
+        let isInfoVisible = false;
+        rect.onPointerClickObservable.add(() => {
+            if (isInfoVisible) {
+                textBlock.text = "INFO";
+                rect.height = "80px";
+                rect.linkOffsetY = 470;
+            } else {
+                textBlock.text = testo;
+                rect.height = "120px";
+                rect.linkOffsetY = 500;
+            }
+            isInfoVisible = !isInfoVisible;
+        });
+    }
+
+    function importaTesti (res_url, title, scene, position){
+        BABYLON.SceneLoader.ImportMeshAsync("", res_url, title, scene).then((result) => {
+            const mesh = result.meshes[1];
+            mesh.position = position;
+            mesh.renderingGroupId = 2;
+        });
+    }
+
+    function createMaterial (name, hexColor, alpha = 0.5, needDepthPrePass = false, disableColorWrite = false) {
+        const material = new BABYLON.StandardMaterial(name, scene)
+        material.emissiveColor = BABYLON.Color3.FromHexString(hexColor)
+        material.alpha = alpha
+        material.needDepthPrePass = needDepthPrePass
+        material.backFaceCulling = true
+        material.transparencyMode = BABYLON.Material.MATERIAL_OPAQUE
+        material.alphaMode = BABYLON.Constants.ALPHA_PREMULTIPLIED
+        material.disableLighting = true
+        material.disableColorWrite = disableColorWrite
+        return material
+    }
+</script>
+</body>
+</html>

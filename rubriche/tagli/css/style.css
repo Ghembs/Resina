@@ -46,14 +46,24 @@ a {
     color: black;
 }
 
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
 #content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: flex-start;
     margin: 0;
-    padding: 0;
+    padding: 0 0 250px 0;
     overflow-y: scroll;
+    overflow-x: clip;
 }
 
 :root {
@@ -71,16 +81,11 @@ a {
     text-align: left;
 }
 
-.titolo {
+.titolo, .testo {
     position: relative;
     width: 90%;
     height: 90%;
-    padding-top: .5rem;
-    padding-bottom: 1em;
     background-image: linear-gradient(90deg, transparent 2em, var(--margin-line-color) 2em, var(--margin-line-color) 2.1em, transparent 2.1em), linear-gradient(var(--ruling-line-color) .1em, transparent .1em);
-    background-size: 100% 1.2em;
-    line-height: 1.2em;
-    font-size: 1.2em;
     overflow-y: clip;
 }
 
@@ -214,10 +219,6 @@ a {
     html, body {
         overflow: hidden;
     }
-    #content{
-        width: 100%;
-        height: 100%;
-    }
     .riquadro {
         height: 500px;
     }
@@ -233,17 +234,33 @@ a {
         min-height: 3em;
         padding-bottom: 5%;
     }
+    .testo {
+        padding-top: .7em;
+        background-size: 100% 2em;
+        line-height: 2em;
+        font-size: 2em;
+    }
+    .testo p {
+        padding-left: 2.2em;
+        margin-top: 2em;
+    }
+    .titolo {
+        padding-top: .2em;
+        background-size: 100% 1.2em;
+        line-height: 1.2em;
+        font-size: 1.2em;
+    }
+    .titolo p {
+        padding-left: 2.2em;
+        margin-top: 1.2em;
+    }
 }
 
 
 /* COMPUTER */
 @media (pointer: fine) and (min-width: 750px), (pointer: none) and (min-width: 750px){
-    #content{
-        width: 100%;
-        height: 100%;
-    }
     .riquadro {
-        height: 60%;
+        height: 500px;
     }
     .riquadro, .riquadro_vert {
         width:90%;
@@ -256,6 +273,26 @@ a {
         min-width: 10em;
         height: 10%;
         min-height: 3em;
+    }
+    .testo {
+        padding-top: .5em;
+        background-size: 100% 1.5em;
+        line-height: 1.5em;
+        font-size: 1.5em;
+    }
+    .testo p {
+        padding-left: 2.2em;
+        margin-top: 1.5em;
+    }
+    .titolo {
+        padding-top: .4em;
+        background-size: 100% 1.3em;
+        line-height: 1.3em;
+        font-size: 1.3em;
+    }
+    .titolo p {
+        padding-left: 2.2em;
+        margin-top: 1.3em;
     }
 }
 

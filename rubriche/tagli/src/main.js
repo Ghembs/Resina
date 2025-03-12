@@ -48,6 +48,7 @@ window.onload = function(){
     const urlTagli = `${localhost}/posts?categories=9`;
     let src = "";
     let autore = "";
+    let urlAutore = "";
     let parser = new DOMParser();
 
     if(queryString.get("article")) {
@@ -63,13 +64,17 @@ window.onload = function(){
                 let test = document.createElement("div");
                 let testino = document.createElement("div");
                 let scotchPic = document.createElement("div");
-                let riquadro = document.createElement("a");
+                let riquadro = document.createElement("div");
                 let rendered = parser.parseFromString(item.content.rendered, "text/html");
                 let testo = document.createElement("div");
+                let porchidii = document.createElement("a");
                 const titolo = item.title.rendered;
                 img = document.createElement("img");
                 autore = item.class_list[item.class_list.findIndex(element => element.includes("autore"))];
+
                 if (autore !== undefined) {
+                    urlAutore = "https://resina.threefaces.org/pagine/autore.html?autore=" + autore.replace("tag-autore", "");
+                    porchidii.href = urlAutore;
                     autore = autore.replace("tag-autore", "").replace("_", " ")
                     autore = capitalizeLetters(autore)
                 }
@@ -83,8 +88,6 @@ window.onload = function(){
                             if (child.innerHTML.indexOf("Autore: ") >= 0) {
                                 autore = child.innerText.replace("Autore: ", "");
                             } else {
-                                child.style.paddingLeft = "2.2em";
-                                child.style.marginTop = "1.2em";
                                 testo.appendChild(child);
                             }
                         }
@@ -105,7 +108,7 @@ window.onload = function(){
                 img.style.filter = "url(#" + filterSmooth.id + ") grayscale(1)";
 
                 autoTitolo.innerHTML = testo.innerHTML // "<p style='padding-left: 2.2em'>" + testo + "</p>";
-                autoTitolo.classList.add("titolo");
+                autoTitolo.classList.add("testo");
                 info.classList.add("info", "img-tape", "img-tape--1");
                 riquadro.classList.add("riquadro_vert");
                 scotchPic.classList.add("img-tape", "img-tape--" + getRandomInt(1, 4));
@@ -116,8 +119,9 @@ window.onload = function(){
                 test.classList.add("img-tape", "img-tape--1", "autoTitolo");
                 testino.style.backgroundColor = "white";
                 testino.style.filter = "url(#" + filterSmooth.id + ")";
-                testino.classList.add("titolo", "under_scotch");
-                testino.innerHTML = "<p class='distorted_paper' style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
+                testino.classList.add("distorted_paper", "under_scotch");
+                testino.innerHTML = "<div class='titolo' style='width: 98%;'><p>Autore: " +
+                    autore + "<br>Titolo: " + titolo + "</p></div>";
                 distorco.appendChild(autoTitolo);
                 scotchPic.appendChild(img);
                 riquadro.appendChild(scotchPic);
@@ -125,7 +129,8 @@ window.onload = function(){
                 riquadro.appendChild(info);
                 content.appendChild(riquadro);
                 test.appendChild(testino);
-                scotchPic.appendChild(test);
+                porchidii.appendChild(test)
+                scotchPic.appendChild(porchidii);
             });
         });
     }
@@ -177,7 +182,7 @@ window.onload = function(){
                     img.classList.add("under_scotch", "full_coverage");
                     img.style.filter = "url(#" + filter.id + ") grayscale(1)";
 
-                    autoTitolo.innerHTML = "<p style='padding-left: 2.2em'>" + estratto + "</p>";
+                    autoTitolo.innerHTML = "<p style='padding-left: 2.2em;'>" + estratto + "</p>";
                     autoTitolo.classList.add("titolo");
                     info.classList.add("info", "img-tape", "img-tape--1");
                     riquadro.classList.add("riquadro");
@@ -190,13 +195,12 @@ window.onload = function(){
                     test.style.top = "5%";
                     test.style.width = "25%";
                     test.style.minWidth = "10em";
-                    test.style.height = "10%";
                     test.style.minHeight = "3em";
                     test.classList.add("img-tape", "img-tape--1");
                     testino.style.backgroundColor = "white";
                     testino.style.filter = "url(#" + filterSmooth.id + ")";
-                    testino.classList.add("titolo", "under_scotch", "full_coverage");
-                    testino.innerHTML = "<p class='distorted_paper' style='padding-left: 2.2em'>Autore: " + autore + "<br>Titolo: " + titolo + "</p>";
+                    testino.classList.add("distorted_paper", "under_scotch", "full_coverage");
+                    testino.innerHTML = "<div class='titolo' style='width: 98%;'><p>Autore: " + autore + "<br>Titolo: " + titolo + "</p></div>";
                     distorco.appendChild(autoTitolo);
                     scotchPic.appendChild(img);
                     riquadro.appendChild(scotchPic);

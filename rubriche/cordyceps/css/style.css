@@ -137,7 +137,7 @@ body header {
     }
     #content {
         width: 80%;
-        margin-bottom: 200px;
+        padding-bottom: 200px;
     }
     #content img {
         max-width: 100%;
