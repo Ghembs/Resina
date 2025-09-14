@@ -3,7 +3,6 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 
 body header {
@@ -33,7 +32,7 @@ body header {
     padding-left: 5px;
     margin: 0;
     width: calc(25% - 4px);
-    font-size: 1.3vh;
+    font-size: 1.3em;
 }
 
 .mail {
@@ -75,7 +74,12 @@ body header {
 }
 
 .corpo_email {
-    font-size: 1.5vh; margin: 0; display: flex; flex-direction: column; justify-content: flex-start; height: 100%;
+    font-size: 1.5em;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
 }
 
 .corpo_email p {
@@ -94,7 +98,7 @@ body header {
 
 .testo {
     width: 100%; height: 100%; background-color: white;
-    font-size: 2vh;
+    font-size: 1.5em;
     box-shadow: inset -2px -2px #dfdfdf,
     inset 2px 2px #808080;
     overflow-y: scroll;
@@ -102,7 +106,6 @@ body header {
 
 .pic {
     margin: 1%;
-    max-width: 50%;
 }
 
 #barra_laterale {
@@ -111,7 +114,8 @@ body header {
 }
 
 #ordinatore {
-    display: flex; width: 100%; height: 100%; margin: 0; padding: 0; position: relative;
+    display: flex; width: 100%;
+    height: 100%; margin: 0; padding: 0 0 min(100px, 20vh) 0; position: relative; overflow-y: scroll;
 }
 
 /* MOBILE */
@@ -151,6 +155,12 @@ body header {
     .articolo {
         height: 60%; width: 100%;
     }
+    .testo {
+        padding-bottom: 10%;
+    }
+    .pic {
+        width: 80%;
+    }
 }
 
 
@@ -162,7 +172,7 @@ body header {
     }
 
     #content {
-        width: 80%; height: 75%;
+        width: 80%;
     }
 
     #barra_laterale {
@@ -174,11 +184,14 @@ body header {
         flex-direction: row;
     }
     #chat {
-        margin-top: 100px;
+        margin-top: 20px;
         width: 100%;height: 70%;
     }
     .articolo {
         height: 75%; width: 80%;
+    }
+    .pic {
+        max-width: 50%;
     }
 }
 

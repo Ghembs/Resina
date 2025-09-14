@@ -48,10 +48,18 @@ function init (messaggio= false, slug="") {
                     let child = rendered.body.removeChild(rendered.body.firstChild);
                     if (child.innerHTML !== undefined) {
                         if (child.getElementsByTagName("img").length > 0) {
+                            console.log(child);
+                            const figure = document.createElement("figure");
                             const pic = document.createElement("img");
-                            pic.classList.add("pic");
+                            figure.classList.add("pic");
                             pic.src = child.firstChild.src;
-                            testo.appendChild(pic);
+                            if (child.getElementsByTagName("figcaption").length > 0) {
+                                const caption = document.createElement("figcaption");
+                                caption.innerHTML = child.getElementsByTagName("figcaption")[0].innerHTML;
+                                figure.appendChild(caption);
+                            }
+                            figure.appendChild(pic);
+                            testo.appendChild(figure);
                         } else {
                             if (child.innerHTML.indexOf("Mittente: ") >= 0) {
                                 mittente.innerText = child.innerText;

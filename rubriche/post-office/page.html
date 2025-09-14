@@ -10,7 +10,7 @@
 </head>
 <body>
 <header w3-include-html="http://localhost:8080/index.html"></header>
-<div class="window" id="main-window" style="margin: 0; height: 100%;">
+<div class="window" id="main-window" style="margin: 0; height: 100%; overflow-y: clip;">
     <div class="title-bar" id="titolo" style="">
         <div class="title-bar-text" id="logo" style="height: 100%; position: relative; display:flex;
 flex-direction: column; justify-content: end;">
@@ -18,8 +18,8 @@ flex-direction: column; justify-content: end;">
             <p style="margin: 0;">by Resina</p>
         </div>
     </div>
-    <div class="window-body" style="height: 100%;">
-        <div id="ordinatore" style="">
+    <div class="window-body" style="height: 100%; overflow-y: scroll;">
+        <div id="ordinatore">
             <div id="barra_laterale" style="">
                 <div class="window-body" style="height: 24px; align-content: center; background-color: #c0c0c0; margin: 2px 2px 0 2px; padding: 0; box-shadow: inset -1px -1px #808080, inset 1px 1px #ffffff;">
                     <span style="margin-left: 4px">Cartelle</span>
