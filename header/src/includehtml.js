@@ -141,7 +141,8 @@ function setPreview (article) {
     by.appendChild(link);
     by.style.top = "0";
     pubb.style.backgroundColor = colors[categories[article.categories]]
-    pic.style.backgroundImage ="url(" + rendered.getElementsByTagName("img")[0].src + ")";
+    pic.style.backgroundImage = rendered.getElementsByTagName("img").length > 0 ? "url(" + rendered.getElementsByTagName("img")[0].src + ")" :
+        "url(" + rendered.getElementsByTagName("a")[0].href + ")";
     pic.style.filter = "opacity(0.8)";
     text.style.filter = "opacity(1)";
     text.innerText = excerpt.getElementsByTagName("p")[0].innerText;

@@ -32,7 +32,7 @@ body header {
     padding-left: 5px;
     margin: 0;
     width: calc(25% - 4px);
-    font-size: 1.3em;
+    font-size: 2em;
 }
 
 .mail {

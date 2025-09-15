@@ -41,6 +41,7 @@ function init (messaggio= false, slug="") {
 
                 bottone.ariaLabel = "Close";
                 bottone.onclick = () => {
+                    finestra.innerHTML = null;
                     init(false);
                 }
                 let rendered = parser.parseFromString(result[0].content.rendered, "text/html");
@@ -53,12 +54,12 @@ function init (messaggio= false, slug="") {
                             const pic = document.createElement("img");
                             figure.classList.add("pic");
                             pic.src = child.firstChild.src;
+                            figure.appendChild(pic);
                             if (child.getElementsByTagName("figcaption").length > 0) {
                                 const caption = document.createElement("figcaption");
                                 caption.innerHTML = child.getElementsByTagName("figcaption")[0].innerHTML;
                                 figure.appendChild(caption);
                             }
-                            figure.appendChild(pic);
                             testo.appendChild(figure);
                         } else {
                             if (child.innerHTML.indexOf("Mittente: ") >= 0) {
@@ -69,6 +70,7 @@ function init (messaggio= false, slug="") {
                                 cc.innerText = child.innerText;
                             }
                             else {
+                                child.style.marginLeft = "15px";
                                 testo.appendChild(child);
                             }
                         }
