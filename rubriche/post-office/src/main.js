@@ -103,16 +103,16 @@ function init (messaggio= false, slug="") {
                 let content = document.getElementById("content");
                 content.style.display = "block";
                 let barra = content.removeChild(document.getElementById("barra_messaggi"));
-                let mittente = document.createElement("div");
                 content.innerHTML = "";
                 content.appendChild(barra);
                 for (let i = 0; i < result.length; i++) {
+                    let mittente = document.createElement("div");
                     let autore = result[i].class_list[result[i].class_list.findIndex(element => element.includes("autore"))];
                     if (autore !== undefined) {
                         autore = autore.replace("tag-autore", "").replace("_", " ")
                         mittente.innerText = capitalizeLetters(autore)
                     }
-                    let rendered = parser.parseFromString(result[0].content.rendered, "text/html");
+                    let rendered = parser.parseFromString(result[i].content.rendered, "text/html");
                     for (let j = 0; j < rendered.getElementsByTagName("p").length; j++) {
                         let temp = rendered.getElementsByTagName("p")[j];
                         if (temp.innerText.indexOf("Mittente: ") >= 0) {

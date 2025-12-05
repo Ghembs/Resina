@@ -2,7 +2,7 @@ let canvas, context, width, height;
 
 let particles = {
     "gorgo": {balls: [], drawn: false},
-    "me": {balls: [], drawn: false},
+    "ghembs": {balls: [], drawn: false},
     "moise": {balls: [], drawn: false},
     "ricca": {balls: [], drawn: false},
     "ross": {balls: [], drawn: false}
@@ -11,90 +11,94 @@ let particles = {
 let elCanvas, imgA, imgB;
 let cursor = {}
 
-const begin = () => {
+const begin = (beginW = 305, beginH = 215) => {
     for (let name in particles){
         start(name).then(() => {
-            canvas = document.getElementById(name);
-            context = canvas.getContext("2d");
-            canvas.width = 305;
-            canvas.height = 215;
-            width = canvas.width;
-            height = canvas.height;
-            let x, y, ix, iy, idx, r, g, b, alfa, colA, colB, colMap, particle, radius;
+            try{
+                canvas = document.getElementById(name);
+                context = canvas.getContext("2d");
+                canvas.width = beginW;
+                canvas.height = beginH;
+                width = canvas.width;
+                height = canvas.height;
+                let x, y, ix, iy, idx, r, g, b, alfa, colA, colB, colMap, particle, radius;
 
-            const imgACanvas = document.createElement("canvas");
-            const imgAContext = imgACanvas.getContext("2d");
+                const imgACanvas = document.createElement("canvas");
+                const imgAContext = imgACanvas.getContext("2d");
 
-            imgACanvas.width = imgA.width;
-            imgACanvas.height = imgA.height;
+                imgACanvas.width = imgA.width;
+                imgACanvas.height = imgA.height;
 
-            // const imgBCanvas = document.createElement("canvas");
-            // const imgBContext = imgBCanvas.getContext("2d");
-            //
-            // imgBContext.width = imgB.width;
-            // imgBContext.height = imgB.height;
+                // const imgBCanvas = document.createElement("canvas");
+                // const imgBContext = imgBCanvas.getContext("2d");
+                //
+                // imgBContext.width = imgB.width;
+                // imgBContext.height = imgB.height;
 
-            imgAContext.drawImage(imgA, 0, 0)
-            //imgBContext.drawImage(imgB, 0, 0)
+                imgAContext.drawImage(imgA, 0, 0)
+                //imgBContext.drawImage(imgB, 0, 0)
 
-            elCanvas = canvas;
-            cursor.pos = new Vector(9999, 9999);
-            const imgAData = imgAContext.getImageData(0, 0, imgA.width, imgA.height).data;
-            // //const imgBData = imgBContext.getImageData(0, 0, imgB.width, imgB.height).data;
-            //
-            const numCircles = 23;
-            let dotRadius = 3;
-            const gapCircle = 2;
-            const gapDots = 1;
-            let cirRadius = 0;
-            const fitRadius = dotRadius;
+                elCanvas = canvas;
+                cursor.pos = new Vector(9999, 9999);
+                const imgAData = imgAContext.getImageData(0, 0, imgA.width, imgA.height).data;
+                // //const imgBData = imgBContext.getImageData(0, 0, imgB.width, imgB.height).data;
+                //
+                const numCircles = beginH/10 + 2;
+                let dotRadius = 3;
+                const gapCircle = 2;
+                const gapDots = 1;
+                let cirRadius = 0;
+                const fitRadius = dotRadius;
 
-            canvas.addEventListener('mousedown', onMouseDown);
-            canvas.addEventListener('touchstart', onTouchStart);
+                canvas.addEventListener('mousedown', onMouseDown);
+                canvas.addEventListener('touchstart', onTouchStart);
 
-            for (let i = 0; i < numCircles; i++) {
-                const numFit = i ? Math.floor(2 * Math.PI * cirRadius / (fitRadius * 2 + gapDots)) : 1;
-                const fitSlice = Math.PI * 2 / numFit;
-                for (let j = 0; j < numFit; j++) {
-                    const theta = fitSlice * j;
+                for (let i = 0; i < numCircles; i++) {
+                    const numFit = i ? Math.floor(2 * Math.PI * cirRadius / (fitRadius * 2 + gapDots)) : 1;
+                    const fitSlice = Math.PI * 2 / numFit;
+                    for (let j = 0; j < numFit; j++) {
+                        const theta = fitSlice * j;
 
-                    x = Math.cos(theta) * cirRadius;
-                    y = Math.sin(theta) * cirRadius;
-                    //x += width * 0.5;
-                    //y += height * 0.5;
+                        x = Math.cos(theta) * cirRadius;
+                        y = Math.sin(theta) * cirRadius;
+                        //x += width * 0.5;
+                        //y += height * 0.5;
 
-                    ix = Math.floor((x / 350) * imgA.width) + imgA.width / 2;
-                    iy = Math.floor((y / 350) * imgA.height) + imgA.height / 2;
-                    idx = ((iy * imgA.height) + ix) * 4;
+                        ix = Math.floor((x / 350) * imgA.width) + imgA.width / 2;
+                        iy = Math.floor((y / 350) * imgA.height) + imgA.height / 2;
+                        idx = ((iy * imgA.height) + ix) * 4;
 
-                    r = imgAData[idx];
-                    g = imgAData[idx + 1];
-                    b = imgAData[idx + 2];
-                    alfa = imgAData[idx + 3];
-                    colA = `rgb(${r}, ${g}, ${b})`;
+                        r = imgAData[idx];
+                        g = imgAData[idx + 1];
+                        b = imgAData[idx + 2];
+                        alfa = imgAData[idx + 3];
+                        colA = `rgb(${r}, ${g}, ${b})`;
 
-                    // const rb = imgBData[idx];
-                    // const gb = imgBData[idx + 1];
-                    // const bb = imgBData[idx + 2];
-                    // const alfab = imgBData[idx + 3];
-                    // colB = `rgb(${rb}, ${gb}, ${bb})`;
-                    //
-                    // colMap = colorInterpolate(colA, colB, 0.5);
+                        // const rb = imgBData[idx];
+                        // const gb = imgBData[idx + 1];
+                        // const bb = imgBData[idx + 2];
+                        // const alfab = imgBData[idx + 3];
+                        // colB = `rgb(${rb}, ${gb}, ${bb})`;
+                        //
+                        // colMap = colorInterpolate(colA, colB, 0.5);
 
-                    radius = map(r, 0, 255, 1, 5);
+                        radius = map(r, 0, 255, 1, 5);
 
-                    particle = new Particle(x + width / 2, y + height / 2, radius,
-                        getRndNumber(height / 10, height / 5), getRndNumber(0.02, 0.03), getRndNumber(0.002, 0.006),
-                        getRndNumber(0.9, 0.97), 1, colA);
-                    particles[name].balls.push(particle);
+                        particle = new Particle(x + width / 2, y + height / 2, radius,
+                            getRndNumber(height / 10, height / 5), getRndNumber(0.02, 0.03), getRndNumber(0.002, 0.006),
+                            getRndNumber(0.9, 0.97), 1, colA);
+                        particles[name].balls.push(particle);
+                    }
+                    particles[name].context = context;
+
+                    cirRadius += fitRadius * 2 + gapCircle;
+                    dotRadius = (1 - (i / numCircles)) * fitRadius;
                 }
-                particles[name].context = context;
-
-                cirRadius += fitRadius * 2 + gapCircle;
-                dotRadius = (1 - (i / numCircles)) * fitRadius;
+                //draw()
+                animate();
+            } catch (e) {
+                console.log(e + " " + name);
             }
-            //draw()
-            animate();
         })
     }
 };
@@ -182,7 +186,9 @@ async function start (pic) {
     //begin();
 }
 
-window.addEventListener("DOMContentLoaded", begin);
+window.addEventListener("DOMContentLoaded", () => {
+    begin(); // necessario altrimenti i parametri, anche se di default, non vengono caricati, JS BAAAAAADDD
+});
 //start();
 
 function onMouseDown(e) {

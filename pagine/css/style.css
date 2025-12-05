@@ -22,6 +22,23 @@ body header {
     min-width: 500px;
 }
 
+#biopic {
+    position: relative;
+    margin: 0 auto;
+}
+
+#biopic canvas {
+    position: absolute; top: 105px; left: calc(50% - 229px); width: 457px; height: 322px
+}
+
+.autore {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 150px;
+    height: 50px;
+}
+
 a {
     color: #eee;
 }

@@ -63,6 +63,43 @@ function createPage(result, author, url) {
     });
 }
 
+function createRedazPage(result, author, url) {
+    const item = result[0];
+    const autore = document.getElementById("autore");
+    const id = item.id;
+    // author === "Admin" ? autore.innerText = "R3sina" : autore.innerText = author;
+    if (author === "Admin"){
+        autore.innerText = "R3sina";
+    } else {
+        //autore.innerText = author;
+        let biopic = document.createElement("div");
+        biopic.id = "biopic";
+        let canvas = document.createElement("canvas");
+        canvas.id = author.toLowerCase();
+        let carta = document.createElement("img")
+        carta.src = "assets/" + author.toLowerCase() + "-poke-card.png";
+        carta.width = 600;
+        biopic.appendChild(canvas);
+        biopic.appendChild(carta);
+        content.appendChild(biopic)
+        begin(457, 322);
+        // <img width="400px" src="assets/gorgo-poke-card.png" alt="">
+    }
+    let ftch = fetch(urlArticles + url + id);
+    ftch.then(res => {
+        let data = res.json();
+        data.then(result => {
+            if (result.length) {
+                populateOpere(result);
+            } else {
+                const empty = document.createElement("p");
+                empty.innerText = noArticles;
+                opere.appendChild(empty);
+            }
+        });
+    });
+}
+
 window.onload = function() {
     if(queryString.get("autore")) {
         queryString.get("autore") === "admin"? document.title = "R3sina" : document.title = queryString.get("autore");
@@ -70,8 +107,9 @@ window.onload = function() {
         ftch.then(res => {
             let data = res.json();
             data.then(result => {
+                console.log(result);
                 if (result.length) {
-                    createPage(result, capitalizeLetters(queryString.get("autore")), "?author=");
+                    createRedazPage(result, capitalizeLetters(queryString.get("autore")), "?author=");
                 } else {
                     console.log("not a family member");
                     ftch = fetch(urlTags + "?slug=autore" + queryString.get("autore"));

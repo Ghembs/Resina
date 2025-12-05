@@ -76,6 +76,7 @@ body header {
     text-shadow: 0 5px 5px black;
     padding: 0;
     margin: 0;
+    text-align: center;
 }
 
 .artCordy:hover a {
